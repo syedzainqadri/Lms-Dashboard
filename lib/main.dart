@@ -1,25 +1,44 @@
-import 'package:admin/constants.dart';
-import 'package:admin/screens/auth/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lmsadminpanle/routes/app_routes.dart';
+import 'package:lmsadminpanle/utils/constants/color_manager.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+String? userId;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final box = GetStorage();
+  userId = box.read("userId");
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Admin Panel',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: bgColor,
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-              .apply(bodyColor: Colors.white),
-          canvasColor: secondaryColor,
+    return Sizer(builder: (context, orientation, deviceType) {
+      return GetMaterialApp(
+        getPages: AppRoutes.routes,
+        initialRoute: userId != null ? "/root" : "/",
+        scrollBehavior: const ScrollBehavior(),
+        theme: ThemeData(
+          primaryColor: ColorManager.primaryColor,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: GoogleFonts.secularOneTextTheme(),
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          }),
         ),
-        home: Login());
+        debugShowCheckedModeBanner: false,
+      );
+    });
   }
 }
