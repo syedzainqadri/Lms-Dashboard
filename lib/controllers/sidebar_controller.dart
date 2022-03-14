@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/utils/constants/assets_manager.dart';
 
+// TODO: Menu shoud be expandable and collapsable
 class SideBarController extends GetxController {
   final List<String> iconsList = [
     AssetImages.dashboard,
@@ -11,17 +12,69 @@ class SideBarController extends GetxController {
     AssetImages.media,
     AssetImages.menuStore,
     AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
     AssetImages.menuSetting
   ];
   final List<String> namesList = [
     'Dashboard',
-    'Categories',
-    'Products',
-    'Users',
-    'Reservations',
-    'Orders',
-    'Invoice Orders',
-    'Settings'
+    // 'Categories',
+    // 'Products',
+    // 'Users',
+    // 'Reservations',
+    // 'Orders',
+    // 'Invoice Orders',
+    // 'Settings',
+
+    "Student",
+    "Parents",
+    "Teacher",
+    "User",
+    "Academic",
+    "Attendance",
+    "Exam",
+    "Mark",
+    "Message",
+    "Media",
+    "Mail / SMS",
+    "Online Exam",
+    "Payroll",
+    "Asset Management",
+    "Inventory",
+    "Leave Application",
+    "Child",
+    "Library",
+    "Transport",
+    "Hostel",
+    "Sponsorship",
+    "Account",
+    "Announcement",
+    "Report",
+    "Online Admission",
+    "Visitor Information",
+    "Administrator",
+    "Frontend",
+    "Settings"
   ];
 
   final _pageController = PageController().obs;

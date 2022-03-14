@@ -20,37 +20,37 @@ class TopCardsSmallWidget extends StatelessWidget {
         child: Column(
           children: [
             const InfoCard(
-              title: "Total Categories",
+              title: "Total Students",
               value: "10",
               icon: Icons.assignment_turned_in,
-              cardColor: ColorManager.primaryColor,
+              cardColor: ColorManager.darkColor,
             ),
             SizedBox(
               height: _width / 64,
             ),
             const InfoCard(
-              title: "Total Products",
+              title: "Total Teachers",
               value: "15",
               icon: Icons.assignment_turned_in,
-              cardColor: ColorManager.primaryColor,
+              cardColor: ColorManager.darkColor,
             ),
             SizedBox(
               height: _width / 64,
             ),
             const InfoCard(
-              title: "Total Orders",
+              title: "Total Schools",
               value: "02",
               icon: Icons.assignment_turned_in,
-              cardColor: ColorManager.primaryColor,
+              cardColor: ColorManager.darkColor,
             ),
             SizedBox(
               height: _width / 64,
             ),
             const InfoCard(
-              title: "Cancelled Orders",
+              title: "Total Districts",
               value: "\$ 100",
               icon: Icons.assignment_turned_in,
-              cardColor: ColorManager.primaryColor,
+              cardColor: ColorManager.darkColor,
             ),
           ],
         ),

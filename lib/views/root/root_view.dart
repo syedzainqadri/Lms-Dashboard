@@ -31,7 +31,7 @@ class RootView extends StatelessWidget {
           ? MobileSidebar(sideBarController: _sideBarController)
           : null,
       appBar: AppBar(
-        backgroundColor: ColorManager.whiteColor,
+        backgroundColor: ColorManager.darkColor,
         elevation: 0,
         iconTheme: const IconThemeData(color: ColorManager.primaryColor),
         automaticallyImplyLeading: size < 500 ? true : false,

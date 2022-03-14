@@ -14,6 +14,7 @@ class TabletSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: ColorManager.darkColor,
       child: Column(
         children: [
           buildSpaceVertical(4.h),

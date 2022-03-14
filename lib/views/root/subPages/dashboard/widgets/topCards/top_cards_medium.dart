@@ -20,10 +20,10 @@ class TopCardsMediumWidget extends StatelessWidget {
           Row(
             children: [
               const InfoCard(
-                title: "Total Categories",
+                title: "Total Students",
                 value: "10",
                 icon: Icons.assignment_turned_in,
-                cardColor: ColorManager.primaryColor,
+                cardColor: ColorManager.darkColor,
               ),
               SizedBox(
                 width: _width / 64,
@@ -32,7 +32,7 @@ class TopCardsMediumWidget extends StatelessWidget {
                 title: "Total Products",
                 value: "15",
                 icon: Icons.assignment_turned_in,
-                cardColor: ColorManager.primaryColor,
+                cardColor: ColorManager.darkColor,
               ),
             ],
           ),
@@ -45,7 +45,7 @@ class TopCardsMediumWidget extends StatelessWidget {
                 title: "Total Orders",
                 value: "02",
                 icon: Icons.assignment_turned_in,
-                cardColor: ColorManager.primaryColor,
+                cardColor: ColorManager.darkColor,
               ),
               SizedBox(
                 width: _width / 64,
@@ -54,7 +54,7 @@ class TopCardsMediumWidget extends StatelessWidget {
                 title: "Cancelled Orders",
                 value: "\$ 100",
                 icon: Icons.assignment_turned_in,
-                cardColor: ColorManager.primaryColor,
+                cardColor: ColorManager.darkColor,
               ),
             ],
           ),

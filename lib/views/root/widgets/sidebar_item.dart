@@ -23,13 +23,13 @@ class SidebarItem extends StatelessWidget {
         ? ListTile(
             onTap: press,
             leading: SvgPicture.asset(svgSrc,
-                color: ColorManager.primaryColor, height: AppSize.s20))
+                color: ColorManager.sidebarMenuColor, height: AppSize.s20))
         : ListTile(
             onTap: press,
             horizontalTitleGap: AppSize.s0,
             leading: SvgPicture.asset(svgSrc,
-                color: ColorManager.primaryColor, height: AppSize.s16),
-            title:
-                textStyle2(title!, TextAlign.left, ColorManager.primaryColor));
+                color: ColorManager.sidebarMenuColor, height: AppSize.s16),
+            title: textStyle2(
+                title!, TextAlign.left, ColorManager.sidebarMenuColor));
   }
 }
