@@ -38,30 +38,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-      apiKey: "AIzaSyDe19B_WMR9MQ_ufnYDwsXl2Uqy0u7lffE",
-      authDomain: "lms-dashboard-4b4a8.firebaseapp.com",
-      projectId: "lms-dashboard-4b4a8",
-      storageBucket: "lms-dashboard-4b4a8.appspot.com",
-      messagingSenderId: "598928944880",
-      appId: "1:598928944880:web:69068cc21502a5db539c35",
-      measurementId: "G-8Q1Z1T1CG3");
+    apiKey: 'AIzaSyDe19B_WMR9MQ_ufnYDwsXl2Uqy0u7lffE',
+    appId: '1:598928944880:web:69068cc21502a5db539c35',
+    messagingSenderId: '598928944880',
+    projectId: 'lms-dashboard-4b4a8',
+    authDomain: 'lms-dashboard-4b4a8.firebaseapp.com',
+    storageBucket: 'lms-dashboard-4b4a8.appspot.com',
+    measurementId: 'G-8Q1Z1T1CG3',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCQMYrhVEbZ2-0cVOPTJzoCuOU3UPtXwBk',
-    appId: '1:555903024095:android:a43c98252d3892e1f2626a',
-    messagingSenderId: '555903024095',
-    projectId: 'noor-moden-77c6d',
-    storageBucket: 'noor-moden-77c6d.appspot.com',
+    apiKey: 'AIzaSyDUaVcFLtKZBW02thq3_S8bnZ-Eo4B9xew',
+    appId: '1:598928944880:android:19f38717331d9201539c35',
+    messagingSenderId: '598928944880',
+    projectId: 'lms-dashboard-4b4a8',
+    storageBucket: 'lms-dashboard-4b4a8.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAlO1Ro8FUbfBymbNIXfbbOB62DiuVQmCQ',
-    appId: '1:555903024095:ios:428226c10b5a6ec1f2626a',
-    messagingSenderId: '555903024095',
-    projectId: 'noor-moden-77c6d',
-    storageBucket: 'noor-moden-77c6d.appspot.com',
-    iosClientId:
-        '555903024095-borets13ksnn5n38hhreuci9fggpt5tk.apps.googleusercontent.com',
-    iosBundleId: 'com.Azainapps.noorModernAdminPanel',
+    apiKey: 'AIzaSyClPjI6a4Q0Pc4VPgqcH6jcSrAlqKx4YC0',
+    appId: '1:598928944880:ios:faa329d62de2869d539c35',
+    messagingSenderId: '598928944880',
+    projectId: 'lms-dashboard-4b4a8',
+    storageBucket: 'lms-dashboard-4b4a8.appspot.com',
+    iosClientId: '598928944880-jfte0h7sccrvop8ieihlpu4ghjjughqr.apps.googleusercontent.com',
+    iosBundleId: 'com.Azainapps.lmsAdminPanel',
   );
 }

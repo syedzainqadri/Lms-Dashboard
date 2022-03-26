@@ -14,30 +14,33 @@ class DesktopSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorManager.darkColor,
-      child: Column(
-        children: [
-          buildSpaceVertical(4.h),
-          Image.asset(AssetImages.logo, height: 10.h, width: 20.w),
-          buildSpaceVertical(4.h),
-          const Divider(thickness: 2, color: ColorManager.sidebarMenuColor),
-          buildSpaceVertical(6.h),
-          Expanded(
-            child: ListView.builder(
-              itemCount: sideBarController.iconsList.length,
-              itemBuilder: (context, index) {
-                return SidebarItem(
-                  title: sideBarController.namesList[index],
-                  svgSrc: sideBarController.iconsList[index],
-                  isTablet: false,
-                  press: () {
-                    sideBarController.onSelected(index);
-                  },
-                );
-              },
+      // backgroundColor:
+      child: Container(
+        color: ColorManager.darkColor,
+        child: Column(
+          children: [
+            buildSpaceVertical(4.h),
+            Image.asset(AssetImages.logo, height: 10.h, width: 20.w),
+            buildSpaceVertical(4.h),
+            const Divider(thickness: 2, color: ColorManager.sidebarMenuColor),
+            buildSpaceVertical(6.h),
+            Expanded(
+              child: ListView.builder(
+                itemCount: sideBarController.iconsList.length,
+                itemBuilder: (context, index) {
+                  return SidebarItem(
+                    title: sideBarController.namesList[index],
+                    svgSrc: sideBarController.iconsList[index],
+                    isTablet: false,
+                    press: () {
+                      sideBarController.onSelected(index);
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
