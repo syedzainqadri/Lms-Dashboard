@@ -1,7 +1,4 @@
-
-
-class StringsManager{
-
+class StringsManager {
   static const String appName = "Noor Modern";
   static const String token = "2010201220172019";
   static const String error = "Oops! Error Occurred";
@@ -15,7 +12,8 @@ class StringsManager{
 
   static const String wrongEmail = "You entered a wrong email";
   static const String successEmail = "Successfully Sent a verification email";
-  static const String alreadyLogged = "User Already Logged In through this google account";
+  static const String alreadyLogged =
+      "User Already Logged In through this google account";
 
   //onboard screen
   static const String start = "START";
@@ -34,8 +32,6 @@ class StringsManager{
   static const String register = "SIGN UP";
   static const String continued = "CONTINUE";
   static const String passUnMatch = "Password Not Matched";
-
-
 
   // success screen
   static const String registerSuccess = "Registered Successfully";
@@ -67,11 +63,10 @@ class StringsManager{
   static const String settings = "Settings";
 
   // add new category
-  static const String category = "ENTER CATEGORY NAME";
-  static const String sku = "ENTER SKU";
-  static const String catStatus = "Category Status";
-  static const String catStatusA = "ACTIVE";
-  static const String catStatusI = "IN-ACTIVE";
+  static const String event = "ENTER EVENT NAME";
+  static const String eventUrl = "ENTER URL";
+  static const String evntStatus = "EVENT Status";
+  static const String eventStatusA = "ACTIVE";
+  static const String eventStatusI = "IN-ACTIVE";
   static const String chooseFile = "Choose File";
-
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lmsadminpanle/services/database.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/font_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
@@ -18,8 +19,8 @@ class AddCategoryDialog extends StatefulWidget {
 }
 
 class _AddCategoryDialogState extends State<AddCategoryDialog> {
-  final _catNameController = TextEditingController();
-  final _skuController = TextEditingController();
+  final _eventNameController = TextEditingController();
+  final _urlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
 
@@ -33,7 +34,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: SizedBox(
-        height: size.width > 968 ? size.height * 0.65 : size.height * 0.72,
+        height: size.height * 0.80,
         width: size.width * 0.7,
         child: Form(
           key: _formKey,
@@ -43,26 +44,26 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             children: [
               buildSpaceVertical(2.h),
               Center(
-                  child: textStyle4("Add New Category", TextAlign.center,
+                  child: textStyle4("Add New Event", TextAlign.center,
                       ColorManager.primaryColor)),
               buildSpaceVertical(2.h),
               CustomTextField(
-                controller: _catNameController,
-                hintName: StringsManager.category,
+                controller: _eventNameController,
+                hintName: StringsManager.event,
                 icon: Icons.category,
                 isLarge: size.width > 800 ? true : false,
               ),
               buildSpaceVertical(2.h),
               CustomTextField(
-                controller: _skuController,
-                hintName: StringsManager.sku,
+                controller: _urlController,
+                hintName: StringsManager.eventUrl,
                 icon: Icons.description,
                 isLarge: size.width > 800 ? true : false,
               ),
               buildSpaceVertical(2.h),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p20),
-                child: textStyle3(StringsManager.catStatus, TextAlign.center,
+                child: textStyle3(StringsManager.eventStatusA, TextAlign.center,
                     ColorManager.primaryColor),
               ),
               buildSpaceVertical(2.h),
@@ -80,7 +81,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                                 contentPadding:
                                     const EdgeInsets.only(right: 1.0),
                                 title: textStyle3(
-                                    StringsManager.catStatusA,
+                                    StringsManager.eventStatusA,
                                     TextAlign.center,
                                     ColorManager.primaryColor),
                                 value: 0,
@@ -99,7 +100,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                                 contentPadding:
                                     const EdgeInsets.only(right: 1.0),
                                 title: textStyle3(
-                                    StringsManager.catStatusI,
+                                    StringsManager.eventStatusI,
                                     TextAlign.center,
                                     ColorManager.primaryColor),
                                 value: 1,
@@ -120,7 +121,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                       children: [
                         RadioListTile(
                             activeColor: ColorManager.primaryColor,
-                            title: textStyle3(StringsManager.catStatusA,
+                            title: textStyle3(StringsManager.eventStatusA,
                                 TextAlign.center, ColorManager.primaryColor),
                             value: 0,
                             groupValue: selectedCatStatus,
@@ -131,7 +132,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                             }),
                         RadioListTile(
                             activeColor: ColorManager.primaryColor,
-                            title: textStyle3(StringsManager.catStatusI,
+                            title: textStyle3(StringsManager.eventStatusI,
                                 TextAlign.center, ColorManager.primaryColor),
                             value: 1,
                             groupValue: selectedCatStatus,
@@ -156,7 +157,10 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     children: [
                       buildSpaceHorizontal(5.w),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Database().addEvent(
+                              _eventNameController.text, _urlController.text);
+                        },
                         child: Container(
                           height: 5.h,
                           width: size.width > 550 ? 13.w : 18.w,

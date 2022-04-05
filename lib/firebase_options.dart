@@ -38,13 +38,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-      apiKey: "AIzaSyDe19B_WMR9MQ_ufnYDwsXl2Uqy0u7lffE",
-      authDomain: "lms-dashboard-4b4a8.firebaseapp.com",
-      projectId: "lms-dashboard-4b4a8",
-      storageBucket: "lms-dashboard-4b4a8.appspot.com",
-      messagingSenderId: "598928944880",
-      appId: "1:598928944880:web:69068cc21502a5db539c35",
-      measurementId: "G-8Q1Z1T1CG3");
+      apiKey: "AIzaSyCX4wEiyb4F0z72pba_2AhIOH94eR04NEE",
+      authDomain: "plfadminpanel.firebaseapp.com",
+      projectId: "plfadminpanel",
+      storageBucket: "plfadminpanel.appspot.com",
+      messagingSenderId: "977817941000",
+      appId: "1:977817941000:web:5449dc03a789cf66368dbd",
+      measurementId: "G-4432HJ0Y5F");
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCQMYrhVEbZ2-0cVOPTJzoCuOU3UPtXwBk',

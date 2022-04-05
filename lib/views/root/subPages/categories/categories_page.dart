@@ -21,8 +21,7 @@ class CategoriesPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle6(
-                    "Categories", TextAlign.left, ColorManager.primaryColor),
+                textStyle6("Events", TextAlign.left, ColorManager.primaryColor),
                 InkWell(
                     onTap: () {
                       showDialog(
@@ -33,8 +32,7 @@ class CategoriesPage extends StatelessWidget {
                         },
                       );
                     },
-                    child:
-                        addButton("Add Category", width > 800 ? false : true)),
+                    child: addButton("Add Events", width > 800 ? false : true)),
               ],
             ),
             const CategoriesTable(),

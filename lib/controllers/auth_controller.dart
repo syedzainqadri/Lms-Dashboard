@@ -22,7 +22,7 @@ class AuthController extends GetxController {
       isRLoading.value = true;
       _userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      addAuthData(name, email, password);
+      addAuthData(name, email);
       isRLoading.value = false;
       Get.toNamed('/');
       successToast(StringsManager.success, StringsManager.successMsj);
@@ -74,7 +74,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void addAuthData(String name, String email, String password) async {
+  void addAuthData(String name, String email) async {
     user = _userCredential!.user;
     await FirebaseFirestore.instance
         .collection('adminAuthData')
@@ -83,7 +83,6 @@ class AuthController extends GetxController {
       "id": user!.uid,
       "name": name,
       "email": email,
-      "password": password,
     });
   }
 }
