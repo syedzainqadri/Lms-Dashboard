@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/add_cat_dialog.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/widgets/add_button.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/widgets/categories_table.dart';
+import 'addCategory/add_event_dialog.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({Key? key}) : super(key: key);

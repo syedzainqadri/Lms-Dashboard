@@ -14,29 +14,31 @@ class TabletSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorManager.darkColor,
-      child: Column(
-        children: [
-          buildSpaceVertical(4.h),
-          Image.asset(AssetImages.logo, height: 6.h, width: 10.w),
-          buildSpaceVertical(2.h),
-          const Divider(thickness: 2, color: ColorManager.primaryColor),
-          buildSpaceVertical(4.h),
-          Expanded(
-            child: ListView.builder(
-              itemCount: sideBarController.iconsList.length,
-              itemBuilder: (context, index) {
-                return SidebarItem(
-                  svgSrc: sideBarController.iconsList[index],
-                  isTablet: true,
-                  press: () {
-                    sideBarController.onSelected(index);
-                  },
-                );
-              },
+      child: Container(
+        color: ColorManager.darkColor,
+        child: Column(
+          children: [
+            buildSpaceVertical(4.h),
+            Image.asset(AssetImages.logo, height: 6.h, width: 10.w),
+            buildSpaceVertical(2.h),
+            const Divider(thickness: 2, color: ColorManager.primaryColor),
+            buildSpaceVertical(4.h),
+            Expanded(
+              child: ListView.builder(
+                itemCount: sideBarController.iconsList.length,
+                itemBuilder: (context, index) {
+                  return SidebarItem(
+                    svgSrc: sideBarController.iconsList[index],
+                    isTablet: true,
+                    press: () {
+                      sideBarController.onSelected(index);
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

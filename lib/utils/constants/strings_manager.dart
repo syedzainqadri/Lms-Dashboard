@@ -51,6 +51,7 @@ class StringsManager {
   static const String n_2 = "02";
   static const String n_6 = "06";
   static const String n_1 = "01";
+  static const String noData = "No Data Found";
 
   // add tasks screen
   static const String dashboard = "Dashboard";
@@ -69,4 +70,19 @@ class StringsManager {
   static const String eventStatusA = "ACTIVE";
   static const String eventStatusI = "IN-ACTIVE";
   static const String chooseFile = "Choose File";
+  static const String status = "STATUS";
+  static const String tarana = "TARANA";
+  static const String poster = "POSTER";
+  static const String sponsors = "SPONSOR";
+  static const String program = "PROGRAM";
+  static const String resourcePersons = "RESOURCE PERSONS";
+  static const String gallery = "GALLERY";
+  static const String media = "MEDIA";
+  static const String getInvolved = "GET INVOLVED";
+  static const String testimonials = "TESTIMONIALS";
+  static const String venue = "VENUE";
+  static const String registration = "REGISTRATION";
+  static const String videos = "VIDEOS";
+  static const String bookLaunches = "BOOK LAUNCHES";
+
 }
