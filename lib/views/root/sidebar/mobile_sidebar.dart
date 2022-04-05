@@ -15,7 +15,6 @@ class MobileSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // backgroundColor: ColorManager.darkColor,
       child: Container(
         color: ColorManager.darkColor,
         child: Column(

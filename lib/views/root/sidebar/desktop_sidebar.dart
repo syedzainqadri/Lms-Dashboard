@@ -14,7 +14,6 @@ class DesktopSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // backgroundColor:
       child: Container(
         color: ColorManager.darkColor,
         child: Column(
