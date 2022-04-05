@@ -157,10 +157,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                     children: [
                       buildSpaceHorizontal(5.w),
                       InkWell(
-                        onTap: () {
-                          Database().addEvent(
-                              _eventNameController.text, _urlController.text);
-                        },
+                        onTap: () {},
                         child: Container(
                           height: 5.h,
                           width: size.width > 550 ? 13.w : 18.w,
@@ -200,7 +197,9 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   Expanded(
                     flex: 1,
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        await Database().addEvent(
+                            _eventNameController.text, _urlController.text);
                         Get.back();
                       },
                       child: Container(
