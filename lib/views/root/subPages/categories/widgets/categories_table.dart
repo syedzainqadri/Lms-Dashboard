@@ -36,8 +36,8 @@ class CategoriesTable extends StatelessWidget {
             Row(
               children: [
                 buildSpaceVertical(2.h),
-                textStyle3("Available Categories", TextAlign.left,
-                    ColorManager.primaryColor),
+                textStyle3(
+                    "Events List", TextAlign.left, ColorManager.primaryColor),
               ],
             ),
             DataTable2(
@@ -47,9 +47,9 @@ class CategoriesTable extends StatelessWidget {
               columns: [
                 DataColumn2(
                   label: width > 800
-                      ? textStyle2("Category Name", TextAlign.center,
+                      ? textStyle2("Event Name", TextAlign.center,
                           ColorManager.blackColor)
-                      : textStyle0_5("Category Name", TextAlign.center,
+                      : textStyle0_5("Event Name", TextAlign.center,
                           ColorManager.blackColor),
                   // size: ColumnSize.L,
                 ),
@@ -62,9 +62,9 @@ class CategoriesTable extends StatelessWidget {
                 DataColumn(
                   label: width > 800
                       ? textStyle2(
-                          "SKU", TextAlign.center, ColorManager.blackColor)
+                          "URL", TextAlign.center, ColorManager.blackColor)
                       : textStyle0_5(
-                          "SKU", TextAlign.center, ColorManager.blackColor),
+                          "URL", TextAlign.center, ColorManager.blackColor),
                 ),
                 DataColumn(
                   label: width > 800
@@ -78,9 +78,9 @@ class CategoriesTable extends StatelessWidget {
                 7,
                 (index) => DataRow(cells: [
                   DataCell(width > 800
-                      ? textStyle2("Category $index", TextAlign.center,
+                      ? textStyle2("Event $index", TextAlign.center,
                           ColorManager.blackColor)
-                      : textStyle0_5("Category $index", TextAlign.center,
+                      : textStyle0_5("Event $index", TextAlign.center,
                           ColorManager.blackColor)),
                   DataCell(width > 800
                       ? textStyle2(
