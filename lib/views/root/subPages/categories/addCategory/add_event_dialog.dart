@@ -526,7 +526,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                               videos,
                               bookLaunches,
                               status);
-                          Get.back();
+                          Get.offAllNamed('/root');
                         },
                         child: Container(
                           height: 5.h,

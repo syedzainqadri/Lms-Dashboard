@@ -13,6 +13,7 @@ class Database {
   ) async {
     DocumentReference ref = FirebaseFirestore.instance.collection("event").doc();
     await fire.collection('event').doc(ref.id).set({
+      'id': ref.id.toString(),
       'name': name,
       'url': url,
       'tarana': tarana,

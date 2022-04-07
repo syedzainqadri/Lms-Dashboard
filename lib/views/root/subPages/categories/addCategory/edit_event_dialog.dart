@@ -14,7 +14,8 @@ import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class EditCategoryDialog extends StatefulWidget {
-  const EditCategoryDialog({Key? key}) : super(key: key);
+  final String id;
+  const EditCategoryDialog({Key? key, required this.id}) : super(key: key);
 
   @override
   _EditCategoryDialogState createState() => _EditCategoryDialogState();
@@ -52,24 +53,24 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
   }
 
   getData() async{
-    eventModel = await _eventController.getEventData();
-    _eventNameController.text = eventModel!.name!;
-    _urlController.text = eventModel!.url!;
-    status = eventModel!.status!;
-    tarana = eventModel!.tarana!;
-    poster = eventModel!.poster!;
-    sponsors = eventModel!.sponsors!;
-    program = eventModel!.program!;
-    resourcePersons = eventModel!.resource_Persons!;
-    gallery = eventModel!.gallery!;
-    media = eventModel!.media!;
-    getInvolved = eventModel!.getInvolved!;
-    testimonials = eventModel!.testimonials!;
-    venue = eventModel!.venue!;
-    registration = eventModel!.registration!;
-    videos = eventModel!.videos!;
-    bookLaunches = eventModel!.book_launches!;
+    eventModel = await _eventController.getEventData(widget.id);
     setState(() {
+      _eventNameController.text = eventModel!.name!;
+      _urlController.text = eventModel!.url!;
+      status = eventModel!.status!;
+      tarana = eventModel!.tarana!;
+      poster = eventModel!.poster!;
+      sponsors = eventModel!.sponsors!;
+      program = eventModel!.program!;
+      resourcePersons = eventModel!.resource_Persons!;
+      gallery = eventModel!.gallery!;
+      media = eventModel!.media!;
+      getInvolved = eventModel!.getInvolved!;
+      testimonials = eventModel!.testimonials!;
+      venue = eventModel!.venue!;
+      registration = eventModel!.registration!;
+      videos = eventModel!.videos!;
+      bookLaunches = eventModel!.book_launches!;
     });
   }
 
@@ -274,34 +275,6 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                               resourcePersons = true;
                             }else{
                               resourcePersons = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.gallery, TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: gallery ? 0 : 1,
-                          activeBgColors: const [[Colors.cyan], [Colors.redAccent]],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if(index == 0){
-                              gallery = true;
-                            }else{
-                              gallery = false;
                             }
                           },
                         ),
@@ -547,13 +520,18 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
+                            print("$tarana"
+                                "$poster" "$sponsors" "$program" "$resourcePersons"
+                                "$gallery" "$media" "$getInvolved" "$testimonials"
+                                "$venue" "$registration" "$videos" "$bookLaunches" "$status");
                             _updateEventController.updateEvent(
+                                widget.id,
                                 _eventNameController.text,
                                 _urlController.text, tarana,
                                 poster, sponsors, program, resourcePersons,
                                 gallery, media, getInvolved, testimonials,
                                 venue, registration, videos, bookLaunches, status);
-                            Get.back();
+                            Get.offAllNamed('/root');
                           },
                           child: Container(
                             height: 5.h,

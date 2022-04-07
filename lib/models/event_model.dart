@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventModel {
   String? name;
+  String? id;
   String? url;
   bool? tarana;
   bool? poster;
@@ -18,7 +19,7 @@ class EventModel {
   bool? book_launches;
   bool? status;
 
-  EventModel({
+  EventModel({this.id,
     this.name, this.url, this.tarana, this.poster, this.sponsors, this.program,
     this.resource_Persons, this.gallery, this.media, this.getInvolved, this.testimonials,
     this.venue, this.registration, this.videos, this.book_launches, this.status,
@@ -26,19 +27,20 @@ class EventModel {
 
   EventModel.fromFireStore(Map<String, dynamic> doc) {
     name = doc['name'];
+    id = doc['id'];
     url = doc['url'];
     tarana = doc['tarana'];
     poster = doc['poster'];
     sponsors = doc['sponsors'];
     program = doc['program'];
-    resource_Persons = doc['resource_Persons'];
+    resource_Persons = doc['resource_person'];
     gallery = doc['gallery'];
     media = doc['media'];
     getInvolved = doc['getInvolved'];
     testimonials = doc['testimonials'];
     venue = doc['venue'];
     registration = doc['registration'];
-    videos = doc['videos'];
+    videos = doc['video'];
     book_launches = doc['book_launches'];
     status = doc['status'];
   }
