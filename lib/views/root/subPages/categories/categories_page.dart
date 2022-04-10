@@ -28,7 +28,7 @@ class CategoriesPage extends StatelessWidget {
                         barrierColor: Colors.black26,
                         context: context,
                         builder: (context) {
-                          return const AddCategoryDialog();
+                          return const AddEventDialog();
                         },
                       );
                     },

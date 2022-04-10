@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lmsadminpanle/controllers/get_events_controller.dart';
 import 'package:lmsadminpanle/controllers/update_event_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
@@ -13,7 +16,8 @@ import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class ViewCategoryDialog extends StatefulWidget {
-  const ViewCategoryDialog({Key? key}) : super(key: key);
+  final String id;
+  const ViewCategoryDialog({Key? key, required this.id}) : super(key: key);
 
   @override
   _ViewCategoryDialogState createState() => _ViewCategoryDialogState();
@@ -40,6 +44,8 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
   bool bookLaunches = false;
   final GetEventController _eventController = Get.put(GetEventController());
   EventModel? eventModel;
+  final _descriptionController = TextEditingController();
+  Uint8List? bytes;
 
 
   @override
@@ -50,25 +56,30 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
   }
 
   getData() async{
-    eventModel = await _eventController.getEventData();
-    _eventNameController.text = eventModel!.name!;
-    _urlController.text = eventModel!.url!;
-    status = eventModel!.status!;
-    tarana = eventModel!.tarana!;
-    poster = eventModel!.poster!;
-    sponsors = eventModel!.sponsors!;
-    program = eventModel!.program!;
-    resourcePersons = eventModel!.resource_Persons!;
-    gallery = eventModel!.gallery!;
-    media = eventModel!.media!;
-    getInvolved = eventModel!.getInvolved!;
-    testimonials = eventModel!.testimonials!;
-    venue = eventModel!.venue!;
-    registration = eventModel!.registration!;
-    videos = eventModel!.videos!;
-    bookLaunches = eventModel!.book_launches!;
+    eventModel = await _eventController.getEventData(widget.id);
     setState(() {
+      _eventNameController.text = eventModel!.name!;
+      _urlController.text = eventModel!.url!;
+      _descriptionController.text = eventModel!.description!;
+      status = eventModel!.status!;
+      tarana = eventModel!.tarana!;
+      poster = eventModel!.poster!;
+      sponsors = eventModel!.sponsors!;
+      program = eventModel!.program!;
+      resourcePersons = eventModel!.resource_Persons!;
+      gallery = eventModel!.gallery!;
+      media = eventModel!.media!;
+      getInvolved = eventModel!.getInvolved!;
+      testimonials = eventModel!.testimonials!;
+      venue = eventModel!.venue!;
+      registration = eventModel!.registration!;
+      videos = eventModel!.videos!;
+      bookLaunches = eventModel!.book_launches!;
     });
+    // final ByteData imageData = await NetworkAssetBundle(Uri.parse(_urlController.text)).load(_urlController.text);
+    // bytes = imageData.buffer.asUint8List();
+    // print(bytes);
+    // setState(() {});
   }
 
   @override
@@ -104,10 +115,20 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
+                  // Image.memory(bytes!),
+                  buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _urlController,
                     hintName: StringsManager.eventUrl,
                     icon: Icons.description,
+                    isLarge: size.width > 800 ? true : false,
+                  ),
+                  buildSpaceVertical(2.h),
+                  CustomTextField(
+                    controller: _descriptionController,
+                    hintName: StringsManager.eventDesc,
+                    icon: Icons.description,
+                    inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -272,34 +293,6 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
                               resourcePersons = true;
                             }else{
                               resourcePersons = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.gallery, TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: gallery ? 0 : 1,
-                          activeBgColors: const [[Colors.cyan], [Colors.redAccent]],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if(index == 0){
-                              gallery = true;
-                            }else{
-                              gallery = false;
                             }
                           },
                         ),

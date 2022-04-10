@@ -65,7 +65,8 @@ class StringsManager {
 
   // add new category
   static const String event = "ENTER EVENT NAME";
-  static const String eventUrl = "ENTER URL";
+  static const String eventUrl = "ENTER IMAGE URL";
+  static const String eventDesc = "ENTER DESCRIPTION";
   static const String evntStatus = "EVENT Status";
   static const String eventStatusA = "ACTIVE";
   static const String eventStatusI = "IN-ACTIVE";

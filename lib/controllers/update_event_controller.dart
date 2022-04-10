@@ -1,7 +1,6 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
@@ -12,18 +11,20 @@ class UpdateEventController extends GetxController {
   bool get loadingStatus => isUpdatingEvent.value;
 
   FirebaseFirestore fire = FirebaseFirestore.instance;
-  String id = FirebaseAuth.instance.currentUser!.uid;
 
-  void updateEvent(String? name, String? url, bool? tarana, bool? poster,
+  void updateEvent(String id, String? name, String? url, String? description, bool? tarana, bool? poster,
       bool? sponsors, bool? program, bool? resource_Persons,
       bool? gallery, bool? media, bool? getInvolved, bool? testimonials,
       bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status) async {
 
     try {
       isUpdatingEvent.value = true;
-      await fire.collection('event').doc(id).set({
+      print(id);
+      await fire.collection('event').doc(id).update({
+        'id': id,
         'name': name,
         'url': url,
+        'description': description,
         'tarana': tarana,
         'poster': poster,
         'sponsors': sponsors,

@@ -6,6 +6,7 @@ import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
+import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/delete_event_dialog.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/edit_event_dialog.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/view_event_dialog.dart';
 import 'package:sizer/sizer.dart';
@@ -126,7 +127,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                               barrierColor: Colors.black26,
                               context: context,
                               builder: (context) {
-                                return const ViewCategoryDialog();
+                                return ViewCategoryDialog(id: eventModel[index].id!);
                               },
                             );
                           },
@@ -140,7 +141,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                               barrierColor: Colors.black26,
                               context: context,
                               builder: (context) {
-                                return const EditCategoryDialog();
+                                return EditCategoryDialog(id: eventModel[index].id!);
                               },
                             );
                           },
@@ -149,7 +150,15 @@ class _CategoriesTableState extends State<CategoriesTable> {
                           icon: const Icon(Icons.delete),
                           color: ColorManager.redColor,
                           iconSize: 24,
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              barrierColor: Colors.black26,
+                              context: context,
+                              builder: (context) {
+                                return DeleteCategoryDialog(id: eventModel[index].id!);
+                              },
+                            );
+                          },
                         ),
                       ],
                     )),

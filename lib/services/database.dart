@@ -6,15 +6,17 @@ class Database {
   String id = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> addEvent(
-    String? name, String? url, bool? tarana, bool? poster,
+    String? name, String? url, String? description, bool? tarana, bool? poster,
     bool? sponsors, bool? program, bool? resource_Persons,
     bool? gallery, bool? media, bool? getInvolved, bool? testimonials,
     bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status
   ) async {
     DocumentReference ref = FirebaseFirestore.instance.collection("event").doc();
     await fire.collection('event').doc(ref.id).set({
+      'id': ref.id.toString(),
       'name': name,
       'url': url,
+      'description': description,
       'tarana': tarana,
       'poster': poster,
       'sponsors': sponsors,
