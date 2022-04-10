@@ -12,7 +12,7 @@ class UpdateEventController extends GetxController {
 
   FirebaseFirestore fire = FirebaseFirestore.instance;
 
-  void updateEvent(String id, String? name, String? url, bool? tarana, bool? poster,
+  void updateEvent(String id, String? name, String? url, String? description, bool? tarana, bool? poster,
       bool? sponsors, bool? program, bool? resource_Persons,
       bool? gallery, bool? media, bool? getInvolved, bool? testimonials,
       bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status) async {
@@ -24,6 +24,7 @@ class UpdateEventController extends GetxController {
         'id': id,
         'name': name,
         'url': url,
+        'description': description,
         'tarana': tarana,
         'poster': poster,
         'sponsors': sponsors,

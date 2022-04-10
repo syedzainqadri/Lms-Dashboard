@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lmsadminpanle/controllers/get_events_controller.dart';
 import 'package:lmsadminpanle/controllers/update_event_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
@@ -41,6 +44,8 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
   bool bookLaunches = false;
   final GetEventController _eventController = Get.put(GetEventController());
   EventModel? eventModel;
+  final _descriptionController = TextEditingController();
+  Uint8List? bytes;
 
 
   @override
@@ -55,6 +60,7 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
     setState(() {
       _eventNameController.text = eventModel!.name!;
       _urlController.text = eventModel!.url!;
+      _descriptionController.text = eventModel!.description!;
       status = eventModel!.status!;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
@@ -70,6 +76,10 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
       videos = eventModel!.videos!;
       bookLaunches = eventModel!.book_launches!;
     });
+    // final ByteData imageData = await NetworkAssetBundle(Uri.parse(_urlController.text)).load(_urlController.text);
+    // bytes = imageData.buffer.asUint8List();
+    // print(bytes);
+    // setState(() {});
   }
 
   @override
@@ -105,10 +115,20 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
+                  // Image.memory(bytes!),
+                  buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _urlController,
                     hintName: StringsManager.eventUrl,
                     icon: Icons.description,
+                    isLarge: size.width > 800 ? true : false,
+                  ),
+                  buildSpaceVertical(2.h),
+                  CustomTextField(
+                    controller: _descriptionController,
+                    hintName: StringsManager.eventDesc,
+                    icon: Icons.description,
+                    inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),

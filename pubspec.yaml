@@ -48,6 +48,8 @@ dependencies:
   firebase_storage_platform_interface: 4.0.14
   firebase_auth_platform_interface: 6.1.11
   toggle_switch: ^1.4.0
+  file_picker:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

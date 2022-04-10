@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lmsadminpanle/services/database.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
@@ -10,16 +14,17 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class AddCategoryDialog extends StatefulWidget {
-  const AddCategoryDialog({Key? key}) : super(key: key);
+class AddEventDialog extends StatefulWidget {
+  const AddEventDialog({Key? key}) : super(key: key);
 
   @override
-  _AddCategoryDialogState createState() => _AddCategoryDialogState();
+  _AddEventDialogState createState() => _AddEventDialogState();
 }
 
-class _AddCategoryDialogState extends State<AddCategoryDialog> {
+class _AddEventDialogState extends State<AddEventDialog> {
   final _eventNameController = TextEditingController();
-  final _urlController = TextEditingController();
+  // final _urlController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
   bool status = false;
@@ -36,6 +41,12 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
   bool registration = false;
   bool videos = false;
   bool bookLaunches = false;
+  Uint8List? catImage;
+  XFile? image;
+  String? url;
+  File? file;
+  final ImagePicker _picker = ImagePicker();
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +68,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildSpaceVertical(2.h),
-                Center(
-                    child: textStyle4("Add New Event", TextAlign.center,
-                        ColorManager.primaryColor)),
+                Center(child: textStyle4("Add New Event", TextAlign.center, ColorManager.primaryColor)),
                 buildSpaceVertical(2.h),
                 CustomTextField(
                   controller: _eventNameController,
@@ -67,13 +76,67 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   icon: Icons.category,
                   isLarge: size.width > 800 ? true : false,
                 ),
+                // buildSpaceVertical(2.h),
+                // CustomTextField(
+                //   controller: _urlController,
+                //   hintName: StringsManager.eventUrl,
+                //   icon: Icons.description,
+                //   isLarge: size.width > 800 ? true : false,
+                // ),
                 buildSpaceVertical(2.h),
                 CustomTextField(
-                  controller: _urlController,
-                  hintName: StringsManager.eventUrl,
+                  controller: _descriptionController,
+                  hintName: StringsManager.eventDesc,
                   icon: Icons.description,
+                  inputLines: 4,
                   isLarge: size.width > 800 ? true : false,
                 ),
+                buildSpaceVertical(2.h),
+
+                // Row(
+                //   children: [
+                //     buildSpaceHorizontal(5.w),
+                //     catImage != null ?
+                //     Container(
+                //       height: 24.h,
+                //       width: 28.w,
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(AppSize.s10),
+                //         border: Border.all(color: ColorManager.primaryColor, width: 1),
+                //       ),
+                //       child: Image.file(file),
+                //     ) :
+                //     Container(
+                //       height: 24.h,
+                //       width: 28.w,
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(AppSize.s10),
+                //         border: Border.all(color: ColorManager.primaryColor, width: 1),
+                //       ),
+                //       child: const Center(child: Icon(Icons.image, size: 100)),
+                //     ),
+                //     buildSpaceHorizontal(5.w),
+                //
+                //
+                //
+                //
+                //   ],
+                // ),
+                InkWell(
+                  onTap: () => getImage(),
+                  child: Center(
+                    child: Container(
+                      height: 5.h,
+                      width: 10.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppSize.s10),
+                        color: ColorManager.primaryColor,
+                      ),
+                      child: Center(child: textStyle2("Add Image", TextAlign.center, ColorManager.whiteColor)),
+                    ),
+                  ),
+                ),
+
                 buildSpaceVertical(2.h),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
@@ -510,8 +573,8 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                       child: InkWell(
                         onTap: () async {
                           await Database().addEvent(
-                              _eventNameController.text,
-                              _urlController.text,
+                              _eventNameController.text, url,
+                              _descriptionController.text,
                               tarana,
                               poster,
                               sponsors,
@@ -571,5 +634,50 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
         )
       ),
     );
+  }
+
+  // Future<void> _pickImage() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       catImage = result.files.first.bytes;
+  //     });
+  //     image = await File('image.jpg').writeAsBytes(catImage!);
+  //     print(image!.path);
+  //     // Reference ref = FirebaseStorage.instance.ref().child(image!.path);
+  //     // await ref.putFile(image!);
+  //     // url = await ref.getDownloadURL();
+  //     print(url);
+  //     setState(() { });
+  //   } else {
+  //     // User canceled the picker
+  //   }
+  // }
+
+  getImage() async {
+    image = await _picker.pickImage(source: ImageSource.gallery);
+     file = File(image!.path);
+    print(' step 2');
+    if (image != null) {
+      String fileName = (file!.path);
+      DateTime dateTime = DateTime.now();
+      Reference ref = FirebaseStorage.instance.ref().child("eventImage$dateTime");
+      UploadTask uploadTask;
+      uploadTask = ref.putData(await image!.readAsBytes());
+      print(" step 3");
+      uploadTask.whenComplete(() {
+        uploadTask.snapshot.ref.getDownloadURL().then((value) {
+          print("Done: $value");
+          setState(() {
+            url = value;
+          });
+        });
+      });
+
+
+    } else {
+      print('No Image Path Received');
+    }
   }
 }

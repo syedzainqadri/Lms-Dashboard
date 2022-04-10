@@ -24,6 +24,7 @@ class EditCategoryDialog extends StatefulWidget {
 class _EditCategoryDialogState extends State<EditCategoryDialog> {
   final _eventNameController = TextEditingController();
   final _urlController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
   bool status = false;
@@ -57,6 +58,7 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
     setState(() {
       _eventNameController.text = eventModel!.name!;
       _urlController.text = eventModel!.url!;
+      _descriptionController.text = eventModel!.description!;
       status = eventModel!.status!;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
@@ -111,6 +113,14 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                     controller: _urlController,
                     hintName: StringsManager.eventUrl,
                     icon: Icons.description,
+                    isLarge: size.width > 800 ? true : false,
+                  ),
+                  buildSpaceVertical(2.h),
+                  CustomTextField(
+                    controller: _descriptionController,
+                    hintName: StringsManager.eventDesc,
+                    icon: Icons.description,
+                    inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -520,14 +530,10 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            print("$tarana"
-                                "$poster" "$sponsors" "$program" "$resourcePersons"
-                                "$gallery" "$media" "$getInvolved" "$testimonials"
-                                "$venue" "$registration" "$videos" "$bookLaunches" "$status");
                             _updateEventController.updateEvent(
                                 widget.id,
                                 _eventNameController.text,
-                                _urlController.text, tarana,
+                                _urlController.text, _descriptionController.text, tarana,
                                 poster, sponsors, program, resourcePersons,
                                 gallery, media, getInvolved, testimonials,
                                 venue, registration, videos, bookLaunches, status);
