@@ -115,7 +115,7 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
-                  // Image.memory(bytes!),
+                  Center(child: Image.network(_urlController.text, height: 200, width: 250)),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _urlController,

@@ -42,7 +42,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
   bool videos = false;
   bool bookLaunches = false;
   Uint8List? catImage;
-  XFile? image;
+  XFile? image, photo;
   String? url;
   File? file;
   final ImagePicker _picker = ImagePicker();
@@ -656,28 +656,43 @@ class _AddEventDialogState extends State<AddEventDialog> {
   // }
 
   getImage() async {
-    image = await _picker.pickImage(source: ImageSource.gallery);
-     file = File(image!.path);
-    print(' step 2');
-    if (image != null) {
-      String fileName = (file!.path);
-      DateTime dateTime = DateTime.now();
-      Reference ref = FirebaseStorage.instance.ref().child("eventImage$dateTime");
-      UploadTask uploadTask;
-      uploadTask = ref.putData(await image!.readAsBytes());
-      print(" step 3");
-      uploadTask.whenComplete(() {
-        uploadTask.snapshot.ref.getDownloadURL().then((value) {
-          print("Done: $value");
-          setState(() {
-            url = value;
-          });
-        });
-      });
-
-
-    } else {
-      print('No Image Path Received');
+    photo = await _picker.pickImage(source: ImageSource.gallery);
+    PickedFile? pickedFile;
+    if(photo != null){
+      image = photo;
+      file = File(image!.path);
+      pickedFile = PickedFile(file!.path);
+      await uploadImageToStorage(pickedFile);
     }
+    //  file = File(image!.path);
+    // print(' step 2');
+    // if (image != null) {
+    //   String fileName = (file!.path);
+    //   DateTime dateTime = DateTime.now();
+    //   Reference ref = FirebaseStorage.instance.ref().child("eventImage$dateTime");
+    //   UploadTask uploadTask;
+    //   uploadTask = ref.putData(await image!.readAsBytes());
+    //   print(" step 3");
+    //   uploadTask.whenComplete(() {
+    //     uploadTask.snapshot.ref.getDownloadURL().then((value) {
+    //       print("Done: $value");
+    //       setState(() {
+    //         url = value;
+    //       });
+    //     });
+    //   });
+    // } else {
+    //   print('No Image Path Received');
+    // }
+  }
+
+
+  uploadImageToStorage(PickedFile? pickedFile) async {
+    DateTime dateTime = DateTime.now();
+    Reference reference = FirebaseStorage.instance.ref().child("eventImage/$dateTime");
+    await reference.putData(await pickedFile!.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
+    url = await reference.getDownloadURL();
+    print(url);
+    setState(() { });
   }
 }
