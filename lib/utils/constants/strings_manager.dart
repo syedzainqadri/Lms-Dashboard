@@ -65,7 +65,7 @@ class StringsManager {
 
   // add new category
   static const String event = "ENTER EVENT NAME";
-  static const String eventUrl = "ENTER IMAGE URL";
+  static const String eventUrl = "ENTER EVENT URL";
   static const String eventDesc = "ENTER DESCRIPTION";
   static const String evntStatus = "EVENT Status";
   static const String eventStatusA = "ACTIVE";
@@ -85,5 +85,4 @@ class StringsManager {
   static const String registration = "REGISTRATION";
   static const String videos = "VIDEOS";
   static const String bookLaunches = "BOOK LAUNCHES";
-
 }

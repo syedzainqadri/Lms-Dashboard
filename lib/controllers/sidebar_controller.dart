@@ -5,18 +5,18 @@ import 'package:lmsadminpanle/utils/constants/assets_manager.dart';
 // TODO: Menu shoud be expandable and collapsable
 class SideBarController extends GetxController {
   final List<String> iconsList = [
+    // AssetImages.dashboard,
     AssetImages.dashboard,
-    AssetImages.folder,
-    AssetImages.menuDoc,
-    AssetImages.menuProfile,
-    AssetImages.media,
+    // AssetImages.menuDoc,
+    // AssetImages.menuProfile,
+    // AssetImages.media,
   ];
   final List<String> namesList = [
-    'Dashboard',
+    // 'Dashboard',
     "Events",
-    "Programs",
-    "FeedBacks",
-    "Donations",
+    // "Programs",
+    // "FeedBacks",
+    // "Donations",
   ];
 
   final _pageController = PageController().obs;
