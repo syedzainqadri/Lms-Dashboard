@@ -7,14 +7,14 @@ class SideBarController extends GetxController {
   final List<String> iconsList = [
     // AssetImages.dashboard,
     AssetImages.dashboard,
-    // AssetImages.menuDoc,
+    AssetImages.menuDoc,
     // AssetImages.menuProfile,
     // AssetImages.media,
   ];
   final List<String> namesList = [
     // 'Dashboard',
     "Events",
-    // "Programs",
+    "Banners",
     // "FeedBacks",
     // "Donations",
   ];

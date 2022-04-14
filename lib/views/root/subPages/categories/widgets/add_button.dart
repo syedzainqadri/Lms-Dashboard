@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 Widget addButton(String text, isSmall) {
   return Container(
     height: 6.h,
-    width: isSmall ? 20.w : 12.w,
+    width: isSmall ? 25.w : 14.w,
     decoration: BoxDecoration(
       color: ColorManager.primaryColor,
       borderRadius: const BorderRadius.all(
@@ -23,6 +23,7 @@ Widget addButton(String text, isSmall) {
     child: Center(
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(
           color: ColorManager.whiteColor,
           fontSize: 14,
