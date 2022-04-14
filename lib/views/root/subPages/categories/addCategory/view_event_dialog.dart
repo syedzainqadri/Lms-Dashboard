@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lmsadminpanle/controllers/get_events_controller.dart';
-import 'package:lmsadminpanle/controllers/update_event_controller.dart';
+import 'package:lmsadminpanle/controllers/events/get_events_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';

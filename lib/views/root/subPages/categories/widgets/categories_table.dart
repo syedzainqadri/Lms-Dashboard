@@ -1,6 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:lmsadminpanle/controllers/get_events_controller.dart';
+import 'package:lmsadminpanle/controllers/events/get_events_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -8,9 +8,11 @@ import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/delete_event_dialog.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/edit_event_dialog.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/view_event_dialog.dart';
+import 'package:lmsadminpanle/views/root/subPages/banners/homeTopBanner/view_home_top_banner_dialog.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
+
+import '../addCategory/view_event_dialog.dart';
 
 class CategoriesTable extends StatefulWidget {
   const CategoriesTable({Key? key}) : super(key: key);
@@ -112,8 +114,8 @@ class _CategoriesTableState extends State<CategoriesTable> {
                         ? textStyle2(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor)
                         : textStyle0_5(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor)),
                     DataCell(width > 800
-                        ? textStyle2("${eventModel[index].url}", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5("${eventModel[index].url}", TextAlign.center, ColorManager.blackColor)),
+                        ? textStyle2("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)
+                        : textStyle0_5("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)),
                     DataCell(Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.min,

@@ -6,6 +6,7 @@ import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:lmsadminpanle/views/root/sidebar/desktop_sidebar.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/views/root/sidebar/tablet_desktop.dart';
+import 'package:lmsadminpanle/views/root/subPages/banners/banners_page.dart';
 import 'package:lmsadminpanle/views/root/subPages/categories/categories_page.dart';
 import 'package:lmsadminpanle/views/root/subPages/dashboard/dashboard_page.dart';
 import 'package:lmsadminpanle/views/root/subPages/invoiceOrders/invoice_orders_page.dart';
@@ -70,9 +71,10 @@ class RootView extends StatelessWidget {
             child: PageView(
               controller: _sideBarController.pageController,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
+              children: const [
                 // DashboardPage(),
                 CategoriesPage(),
+                BannersPage(),
                 // const ProductsPage(),
                 // const UsersPage(),
                 // const ReservationsPage(),

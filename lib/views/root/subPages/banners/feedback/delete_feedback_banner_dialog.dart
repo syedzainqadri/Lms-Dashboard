@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:lmsadminpanle/controllers/events/delete_event_controller.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
+import '../../../../../controllers/feedback/delete_feedback_banner_controller.dart';
 
-class DeleteCategoryDialog extends StatefulWidget {
+class DeleteFeedbackBannerDialog extends StatefulWidget {
   final String id;
-  const DeleteCategoryDialog({Key? key, required this.id}) : super(key: key);
-
+  const DeleteFeedbackBannerDialog({Key? key, required this.id}) : super(key: key);
   @override
-  _DeleteCategoryDialogState createState() => _DeleteCategoryDialogState();
+  _DeleteFeedbackBannerDialogState createState() => _DeleteFeedbackBannerDialogState();
 }
 
-class _DeleteCategoryDialogState extends State<DeleteCategoryDialog> {
+class _DeleteFeedbackBannerDialogState extends State<DeleteFeedbackBannerDialog> {
 
-  final DeleteEventController _deleteEventController = Get.put(DeleteEventController());
+  final DeleteFeedbackBannerController _deleteHomeTopBannerController = Get.put(DeleteFeedbackBannerController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -35,7 +34,7 @@ class _DeleteCategoryDialogState extends State<DeleteCategoryDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(2.h),
-            Center(child: textStyle4("Delete Event", TextAlign.center, ColorManager.primaryColor)),
+            Center(child: textStyle4("Delete Feedback Banner", TextAlign.center, ColorManager.primaryColor)),
             buildSpaceVertical(2.h),
             Center(child: textStyle2("Are you sure to Delete?", TextAlign.center, ColorManager.primaryColor)),
             buildSpaceVertical(2.h),
@@ -53,7 +52,7 @@ class _DeleteCategoryDialogState extends State<DeleteCategoryDialog> {
                   flex: 1,
                   child: InkWell(
                     onTap: () async {
-                      _deleteEventController.deleteEvent(widget.id);
+                      _deleteHomeTopBannerController.deleteHomeTopBanner(widget.id);
                       Get.offAllNamed('/root');
                     },
                     child: Container(
@@ -63,7 +62,7 @@ class _DeleteCategoryDialogState extends State<DeleteCategoryDialog> {
                           color: ColorManager.primaryColor,
                         ),
                         child: Obx(() {
-                          return _deleteEventController.isUpdatingEvent.isTrue ? const Center(child: CircularProgressIndicator()):
+                          return _deleteHomeTopBannerController.isUpdatingEvent.isTrue ? const Center(child: CircularProgressIndicator()):
                           Center(
                             child: textStyle3("DELETE", TextAlign.center,
                                 ColorManager.whiteColor),

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lmsadminpanle/services/database.dart';
+import 'package:lmsadminpanle/controllers/events/add_event.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -23,7 +23,7 @@ class AddEventDialog extends StatefulWidget {
 
 class _AddEventDialogState extends State<AddEventDialog> {
   final _eventNameController = TextEditingController();
-  final _urlController = TextEditingController();
+  final _eventUrlController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
@@ -41,9 +41,8 @@ class _AddEventDialogState extends State<AddEventDialog> {
   bool registration = false;
   bool videos = false;
   bool bookLaunches = false;
-  Uint8List? catImage;
   XFile? image, photo;
-  String? url;
+  String? imageUrl;
   File? file;
   final ImagePicker _picker = ImagePicker();
 
@@ -79,7 +78,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                   ),
                   buildSpaceVertical(2.h),
                   CustomTextField(
-                    controller: _urlController,
+                    controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
                     icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
@@ -652,9 +651,10 @@ class _AddEventDialogState extends State<AddEventDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            await Database().addEvent(
+                            await AddEvent().addEvent(
                                 _eventNameController.text,
-                                url,
+                                imageUrl,
+                                _eventUrlController.text,
                                 _descriptionController.text,
                                 tarana,
                                 poster,
@@ -716,25 +716,6 @@ class _AddEventDialogState extends State<AddEventDialog> {
     );
   }
 
-  // Future<void> _pickImage() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //
-  //   if (result != null) {
-  //     setState(() {
-  //       catImage = result.files.first.bytes;
-  //     });
-  //     image = await File('image.jpg').writeAsBytes(catImage!);
-  //     print(image!.path);
-  //     // Reference ref = FirebaseStorage.instance.ref().child(image!.path);
-  //     // await ref.putFile(image!);
-  //     // url = await ref.getDownloadURL();
-  //     print(url);
-  //     setState(() { });
-  //   } else {
-  //     // User canceled the picker
-  //   }
-  // }
-
   getImage() async {
     photo = await _picker.pickImage(source: ImageSource.gallery);
     PickedFile? pickedFile;
@@ -744,26 +725,6 @@ class _AddEventDialogState extends State<AddEventDialog> {
       pickedFile = PickedFile(file!.path);
       await uploadImageToStorage(pickedFile);
     }
-    //  file = File(image!.path);
-    // print(' step 2');
-    // if (image != null) {
-    //   String fileName = (file!.path);
-    //   DateTime dateTime = DateTime.now();
-    //   Reference ref = FirebaseStorage.instance.ref().child("eventImage$dateTime");
-    //   UploadTask uploadTask;
-    //   uploadTask = ref.putData(await image!.readAsBytes());
-    //   print(" step 3");
-    //   uploadTask.whenComplete(() {
-    //     uploadTask.snapshot.ref.getDownloadURL().then((value) {
-    //       print("Done: $value");
-    //       setState(() {
-    //         url = value;
-    //       });
-    //     });
-    //   });
-    // } else {
-    //   print('No Image Path Received');
-    // }
   }
 
   uploadImageToStorage(PickedFile? pickedFile) async {
@@ -772,8 +733,8 @@ class _AddEventDialogState extends State<AddEventDialog> {
         FirebaseStorage.instance.ref().child("eventImage/$dateTime");
     await reference.putData(await pickedFile!.readAsBytes(),
         SettableMetadata(contentType: 'image/jpeg'));
-    url = await reference.getDownloadURL();
-    print(url);
+    imageUrl = await reference.getDownloadURL();
+    print(imageUrl);
     setState(() {});
   }
 }

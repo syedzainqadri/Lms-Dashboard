@@ -42,4 +42,3 @@ class CategoriesPage extends StatelessWidget {
     );
   }
 }
-// Get.toNamed('/addCat');

@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:lmsadminpanle/controllers/get_events_controller.dart';
-import 'package:lmsadminpanle/controllers/update_event_controller.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lmsadminpanle/controllers/events/get_events_controller.dart';
+import 'package:lmsadminpanle/controllers/events/update_event_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
-import 'package:lmsadminpanle/services/database.dart';
+import 'package:lmsadminpanle/controllers/events/add_event.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -23,10 +27,11 @@ class EditCategoryDialog extends StatefulWidget {
 
 class _EditCategoryDialogState extends State<EditCategoryDialog> {
   final _eventNameController = TextEditingController();
-  final _urlController = TextEditingController();
+  final _eventUrlController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
+  String url = '';
   bool status = false;
   bool tarana = false;
   bool poster = false;
@@ -44,6 +49,10 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
   final GetEventController _eventController = Get.put(GetEventController());
   final UpdateEventController _updateEventController = Get.put(UpdateEventController());
   EventModel? eventModel;
+  XFile? image, photo;
+  String? imageUrl;
+  File? file;
+  final ImagePicker _picker = ImagePicker();
 
 
   @override
@@ -57,8 +66,9 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
     eventModel = await _eventController.getEventData(widget.id);
     setState(() {
       _eventNameController.text = eventModel!.name!;
-      _urlController.text = eventModel!.url!;
+      _eventUrlController.text = eventModel!.eventUrl!;
       _descriptionController.text = eventModel!.description!;
+      url = eventModel!.url!;
       status = eventModel!.status!;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
@@ -109,8 +119,32 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(url, height: 200, width: 250),
+                      buildSpaceHorizontal(5.w),
+                      InkWell(
+                        onTap: () => getImage(),
+                        child: Center(
+                          child: Container(
+                            height: 5.h,
+                            width: 10.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: ColorManager.primaryColor,
+                            ),
+                            child: Center(
+                                child: textStyle2("Update Image", TextAlign.center,
+                                    ColorManager.whiteColor)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  buildSpaceVertical(2.h),
                   CustomTextField(
-                    controller: _urlController,
+                    controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
                     icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
@@ -533,7 +567,7 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                             _updateEventController.updateEvent(
                                 widget.id,
                                 _eventNameController.text,
-                                _urlController.text, _descriptionController.text, tarana,
+                                _eventUrlController.text, imageUrl, _descriptionController.text, tarana,
                                 poster, sponsors, program, resourcePersons,
                                 gallery, media, getInvolved, testimonials,
                                 venue, registration, videos, bookLaunches, status);
@@ -587,4 +621,25 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
       ),
     );
   }
+
+  getImage() async {
+    photo = await _picker.pickImage(source: ImageSource.gallery);
+    PickedFile? pickedFile;
+    if (photo != null) {
+      image = photo;
+      file = File(image!.path);
+      pickedFile = PickedFile(file!.path);
+      await uploadImageToStorage(pickedFile);
+    }
+  }
+
+  uploadImageToStorage(PickedFile? pickedFile) async {
+    DateTime dateTime = DateTime.now();
+    Reference reference = FirebaseStorage.instance.ref().child("eventImage/$dateTime");
+    await reference.putData(await pickedFile!.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
+    imageUrl = await reference.getDownloadURL();
+    print(imageUrl);
+    setState(() {});
+  }
+
 }
