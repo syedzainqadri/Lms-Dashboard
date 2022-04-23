@@ -79,7 +79,7 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                   buildSpaceVertical(2.h),
                   Center(
                       child: textStyle4("Edit Event Detail Banner", TextAlign.center,
-                          ColorManager.primaryColor)),
+                          ColorManager.darkColor)),
                   buildSpaceVertical(2.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +94,7 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                             width: 10.w,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: ColorManager.primaryColor,
+                              color: ColorManager.darkColor,
                             ),
                             child: Center(
                                 child: textStyle2("Update Image", TextAlign.center,
@@ -108,7 +108,6 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -117,7 +116,7 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        textStyle3(StringsManager.status, TextAlign.center, ColorManager.primaryColor),
+                        textStyle3(StringsManager.status, TextAlign.center, ColorManager.darkColor),
                         ToggleSwitch(
                           customWidths: const [50.0, 50.0],
                           cornerRadius: 20.0,
@@ -144,7 +143,7 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width / 2),
                     child: const Divider(
-                        height: 1, thickness: 1, color: ColorManager.primaryColor),
+                        height: 1, thickness: 1, color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   Row(
@@ -162,7 +161,7 @@ class _EditEventDetailBannerDialogState extends State<EditEventDetailBannerDialo
                               height: 5.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(AppSize.s10),
-                                color: ColorManager.primaryColor,
+                                color: ColorManager.darkColor,
                               ),
                               child: Obx(() {
                                 return _updateHomeTopBannerController.isUpdatingEvent.isTrue ? const Center(child: CircularProgressIndicator()):

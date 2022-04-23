@@ -69,60 +69,58 @@ class _CategoriesTableState extends State<CategoriesTable> {
               Row(
                 children: [
                   buildSpaceVertical(2.h),
-                  textStyle3("Events List", TextAlign.left, ColorManager.primaryColor),
+                  textStyle3("Events List", TextAlign.left, ColorManager.darkColor),
                 ],
               ),
               DataTable2(
                 columnSpacing: 12,
                 horizontalMargin: 12,
                 minWidth: 600,
+                border: TableBorder.all(
+                  width: 1.0,
+                  color: ColorManager.darkColor),
                 columns: [
                   DataColumn2(
-                    label: width > 800 ? textStyle2("Event Name", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5("Event Name", TextAlign.center, ColorManager.blackColor),
+                    label: width > 800 ? Center(child: textStyle2("Event Name", TextAlign.center, ColorManager.blackColor))
+                        : Center(child: textStyle0_5("Event Name", TextAlign.center, ColorManager.blackColor)),
                     // size: ColumnSize.L,
                   ),
                   DataColumn(
                       label: width > 800
-                          ? textStyle2(
-                          "Status", TextAlign.center, ColorManager.blackColor)
-                          : textStyle0_5("Status", TextAlign.center,
-                          ColorManager.blackColor)),
+                          ? Center(child: textStyle2("Status", TextAlign.center, ColorManager.blackColor))
+                          : Center(child: textStyle0_5("Status", TextAlign.center, ColorManager.blackColor))),
+                  // DataColumn(
+                  //   label: width > 800
+                  //       ? textStyle2(
+                  //       "URL", TextAlign.center, ColorManager.blackColor)
+                  //       : textStyle0_5(
+                  //       "URL", TextAlign.center, ColorManager.blackColor),
+                  // ),
                   DataColumn(
                     label: width > 800
-                        ? textStyle2(
-                        "URL", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5(
-                        "URL", TextAlign.center, ColorManager.blackColor),
-                  ),
-                  DataColumn(
-                    label: width > 800
-                        ? textStyle2(
-                        "Actions", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5(
-                        "Actions", TextAlign.center, ColorManager.blackColor),
+                        ? Center(child: textStyle2("Actions", TextAlign.right, ColorManager.blackColor))
+                        : Center(child: textStyle0_5("Actions", TextAlign.right, ColorManager.blackColor)),
                   ),
                 ],
                 rows: List<DataRow>.generate(eventModel.length,
                       (index) => DataRow(cells: [
                     DataCell(width > 800
-                        ? textStyle2("${eventModel[index].name}", TextAlign.center,
+                        ? textStyle2("${eventModel[index].name}", TextAlign.left,
                         ColorManager.blackColor)
-                        : textStyle0_5("${eventModel[index].name}", TextAlign.center,
+                        : textStyle0_5("${eventModel[index].name}", TextAlign.left,
                         ColorManager.blackColor)),
                     DataCell(width > 800
-                        ? textStyle2(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor)),
-                    DataCell(width > 800
-                        ? textStyle2("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)
-                        : textStyle0_5("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)),
+                        ? Center(child: textStyle2(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor))
+                        : Center(child: textStyle0_5(eventModel[index].status! ? "ACTIVE" : "INACTIVE", TextAlign.center, ColorManager.blackColor))),
+                    // DataCell(width > 800
+                    //     ? textStyle2("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)
+                    //     : textStyle0_5("${eventModel[index].eventUrl}", TextAlign.center, ColorManager.blackColor)),
                     DataCell(Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
                           icon: const Icon(Icons.visibility),
-                          color: ColorManager.primaryColor,
+                          color: ColorManager.darkColor,
                           iconSize: 24,
                           onPressed: () {
                             showDialog(
@@ -134,6 +132,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                             );
                           },
                         ),
+                        buildSpaceHorizontal(2.w),
                         IconButton(
                           icon: const Icon(Icons.edit),
                           color: ColorManager.bluishColor,
@@ -148,6 +147,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                             );
                           },
                         ),
+                        buildSpaceHorizontal(2.w),
                         IconButton(
                           icon: const Icon(Icons.delete),
                           color: ColorManager.redColor,

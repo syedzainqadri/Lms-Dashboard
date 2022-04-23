@@ -34,14 +34,14 @@ class _DeleteEventDetailBannerDialogState extends State<DeleteEventDetailBannerD
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(2.h),
-            Center(child: textStyle4("Delete Event Detail Banner", TextAlign.center, ColorManager.primaryColor)),
+            Center(child: textStyle4("Delete Event Detail Banner", TextAlign.center, ColorManager.darkColor)),
             buildSpaceVertical(2.h),
-            Center(child: textStyle2("Are you sure to Delete?", TextAlign.center, ColorManager.primaryColor)),
+            Center(child: textStyle2("Are you sure to Delete?", TextAlign.center, ColorManager.darkColor)),
             buildSpaceVertical(2.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: size.width / 2),
               child: const Divider(
-                  height: 1, thickness: 1, color: ColorManager.primaryColor),
+                  height: 1, thickness: 1, color: ColorManager.darkColor),
             ),
             buildSpaceVertical(2.h),
             Row(
@@ -59,7 +59,7 @@ class _DeleteEventDetailBannerDialogState extends State<DeleteEventDetailBannerD
                         height: 5.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: ColorManager.primaryColor,
+                          color: ColorManager.darkColor,
                         ),
                         child: Obx(() {
                           return _deleteHomeTopBannerController.isUpdatingEvent.isTrue ? const Center(child: CircularProgressIndicator()):

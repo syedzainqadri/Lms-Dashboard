@@ -54,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         child: CircularProgressIndicator(
                             value: 20,
                             backgroundColor: ColorManager.grayColor,
-                            color: ColorManager.primaryColor))
+                            color: ColorManager.darkColor))
                     : SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -74,7 +74,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 CustomTextField(
                                   controller: _emailController,
                                   hintName: StringsManager.email,
-                                  icon: Icons.email,
                                   isLarge: size.width > 600 ? true : false,
                                 ),
                                 buildSpaceVertical(5.h),

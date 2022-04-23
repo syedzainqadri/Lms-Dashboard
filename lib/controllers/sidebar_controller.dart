@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/utils/constants/assets_manager.dart';
 
-// TODO: Menu shoud be expandable and collapsable
+
 class SideBarController extends GetxController {
   final List<String> iconsList = [
-    // AssetImages.dashboard,
     AssetImages.dashboard,
     AssetImages.menuDoc,
-    // AssetImages.menuProfile,
-    // AssetImages.media,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
+    AssetImages.menuTask,
   ];
   final List<String> namesList = [
     // 'Dashboard',
     "Events",
     "Banners",
+    "Donations",
+    "Feedbacks",
+    "Volunteers",
     // "FeedBacks",
     // "Donations",
   ];

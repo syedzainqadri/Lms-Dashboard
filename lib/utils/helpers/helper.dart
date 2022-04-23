@@ -6,7 +6,7 @@ successToast(String title, String msg) {
   Get.snackbar(
     title,
     msg,
-    backgroundColor: ColorManager.primaryColor,
+    backgroundColor: ColorManager.darkColor,
     colorText: ColorManager.whiteColor,
     snackPosition: SnackPosition.TOP,
   );

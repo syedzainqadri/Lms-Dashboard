@@ -8,7 +8,6 @@ class CustomTextField extends StatefulWidget {
   final TextInputType inputType;
   final bool isEnable;
   final int inputLines;
-  final IconData icon;
   final Color color;
   final bool isPass;
   final bool isLarge;
@@ -24,7 +23,6 @@ class CustomTextField extends StatefulWidget {
     this.inputType = TextInputType.text,
     this.isEnable = true,
     this.inputLines = 1,
-    required this.icon,
     this.color = ColorManager.whiteColor,
   }) : super(key: key);
 
@@ -71,7 +69,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
             borderSide: BorderSide(color: ColorManager.primaryColor),
           ),
-          prefixIcon: Icon(widget.icon, color: ColorManager.primaryColor),
           suffixIcon: widget.isPass
               ? IconButton(
                   icon: Icon(

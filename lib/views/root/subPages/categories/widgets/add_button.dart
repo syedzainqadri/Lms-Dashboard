@@ -7,13 +7,13 @@ Widget addButton(String text, isSmall) {
     height: 6.h,
     width: isSmall ? 25.w : 14.w,
     decoration: BoxDecoration(
-      color: ColorManager.primaryColor,
+      color: ColorManager.darkColor,
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),
       boxShadow: [
         BoxShadow(
-          color: ColorManager.primaryColor.withOpacity(0.2),
+          color: ColorManager.darkColor.withOpacity(0.2),
           spreadRadius: 4,
           blurRadius: 7,
           offset: const Offset(0, 3),

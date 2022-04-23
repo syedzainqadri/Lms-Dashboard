@@ -44,6 +44,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
   XFile? image, photo;
   String? imageUrl;
   File? file;
+  bool loading = false;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -67,27 +68,23 @@ class _AddEventDialogState extends State<AddEventDialog> {
                 children: [
                   buildSpaceVertical(2.h),
                   Center(
-                      child: textStyle4("Add New Event", TextAlign.center,
-                          ColorManager.primaryColor)),
+                      child: textStyle4("Add New Event", TextAlign.center, ColorManager.darkColor)),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventNameController,
                     hintName: StringsManager.event,
-                    icon: Icons.category,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _descriptionController,
                     hintName: StringsManager.eventDesc,
-                    icon: Icons.description,
                     inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
                   ),
@@ -122,525 +119,551 @@ class _AddEventDialogState extends State<AddEventDialog> {
                   //
                   //   ],
                   // ),
-                  InkWell(
-                    onTap: () => getImage(),
-                    child: Center(
-                      child: Container(
-                        height: 5.h,
-                        width: 10.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: ColorManager.primaryColor,
+
+                  buildSpaceVertical(2.h),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.status, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: status ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          status = true;
+                                        } else {
+                                          status = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.tarana, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: tarana ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          tarana = true;
+                                        } else {
+                                          tarana = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.poster, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: poster ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          poster = true;
+                                        } else {
+                                          poster = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.sponsors, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: sponsors ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          sponsors = true;
+                                        } else {
+                                          sponsors = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.program, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: program ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          program = true;
+                                        } else {
+                                          program = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.resourcePersons,
+                                        TextAlign.center, ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: resourcePersons ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          resourcePersons = true;
+                                        } else {
+                                          resourcePersons = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.gallery, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: gallery ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          gallery = true;
+                                        } else {
+                                          gallery = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.gallery, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: gallery ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          gallery = true;
+                                        } else {
+                                          gallery = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.media, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: media ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          media = true;
+                                        } else {
+                                          media = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.getInvolved, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: getInvolved ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          getInvolved = true;
+                                        } else {
+                                          getInvolved = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.testimonials,
+                                        TextAlign.center, ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: testimonials ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          testimonials = true;
+                                        } else {
+                                          testimonials = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.venue, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: venue ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          venue = true;
+                                        } else {
+                                          venue = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.registration,
+                                        TextAlign.center, ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: registration ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          registration = true;
+                                        } else {
+                                          registration = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.videos, TextAlign.center,
+                                        ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: videos ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          videos = true;
+                                        } else {
+                                          videos = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textStyle3(StringsManager.bookLaunches,
+                                        TextAlign.center, ColorManager.darkColor),
+                                    ToggleSwitch(
+                                      customWidths: const [50.0, 50.0],
+                                      cornerRadius: 20.0,
+                                      initialLabelIndex: bookLaunches ? 0 : 1,
+                                      activeBgColors: const [
+                                        [Colors.cyan],
+                                        [Colors.redAccent]
+                                      ],
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      labels: const ['YES', 'NO'],
+                                      onToggle: (index) {
+                                        if (index == 0) {
+                                          bookLaunches = true;
+                                        } else {
+                                          bookLaunches = false;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Center(
-                            child: textStyle2("Add Image", TextAlign.center,
-                                ColorManager.whiteColor)),
-                      ),
+                        Column(
+                          children: [
+                            imageUrl != null ?
+                            Image.network(imageUrl!, height: 200, width: 250)
+                            : Image.asset("assets/logo.jpeg", height: 200, width: 250),
+                            buildSpaceVertical(3.h),
+                            InkWell(
+                              onTap: () => getImage(),
+                              child: Center(
+                                child: Container(
+                                  height: 5.h,
+                                  width: 10.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(AppSize.s10),
+                                    color: ColorManager.darkColor,
+                                  ),
+                                  child: loading ?  const Center(child: CircularProgressIndicator()) : Center(
+                                      child: textStyle2("Add Image", TextAlign.center,
+                                          ColorManager.whiteColor)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
 
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.status, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: status ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              status = true;
-                            } else {
-                              status = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.tarana, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: tarana ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              tarana = true;
-                            } else {
-                              tarana = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.poster, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: poster ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              poster = true;
-                            } else {
-                              poster = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.sponsors, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: sponsors ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              sponsors = true;
-                            } else {
-                              sponsors = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.program, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: program ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              program = true;
-                            } else {
-                              program = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.resourcePersons,
-                            TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: resourcePersons ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              resourcePersons = true;
-                            } else {
-                              resourcePersons = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.gallery, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: gallery ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              gallery = true;
-                            } else {
-                              gallery = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.gallery, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: gallery ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              gallery = true;
-                            } else {
-                              gallery = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.media, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: media ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              media = true;
-                            } else {
-                              media = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.getInvolved, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: getInvolved ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              getInvolved = true;
-                            } else {
-                              getInvolved = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.testimonials,
-                            TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: testimonials ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              testimonials = true;
-                            } else {
-                              testimonials = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.venue, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: venue ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              venue = true;
-                            } else {
-                              venue = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.registration,
-                            TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: registration ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              registration = true;
-                            } else {
-                              registration = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.videos, TextAlign.center,
-                            ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: videos ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              videos = true;
-                            } else {
-                              videos = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buildSpaceVertical(2.h),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textStyle3(StringsManager.bookLaunches,
-                            TextAlign.center, ColorManager.primaryColor),
-                        ToggleSwitch(
-                          customWidths: const [50.0, 50.0],
-                          cornerRadius: 20.0,
-                          initialLabelIndex: bookLaunches ? 0 : 1,
-                          activeBgColors: const [
-                            [Colors.cyan],
-                            [Colors.redAccent]
-                          ],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: Colors.grey,
-                          inactiveFgColor: Colors.white,
-                          totalSwitches: 2,
-                          labels: const ['YES', 'NO'],
-                          onToggle: (index) {
-                            if (index == 0) {
-                              bookLaunches = true;
-                            } else {
-                              bookLaunches = false;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
                   buildSpaceVertical(2.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width / 2),
                     child: const Divider(
                         height: 1,
                         thickness: 1,
-                        color: ColorManager.primaryColor),
+                        color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   Row(
@@ -676,7 +699,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                             height: 5.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: ColorManager.primaryColor,
+                              color: ColorManager.darkColor,
                             ),
                             child: Center(
                               child: textStyle3("SAVE", TextAlign.center,
@@ -728,13 +751,12 @@ class _AddEventDialogState extends State<AddEventDialog> {
   }
 
   uploadImageToStorage(PickedFile? pickedFile) async {
+    setState(() { loading = true; });
     DateTime dateTime = DateTime.now();
-    Reference reference =
-        FirebaseStorage.instance.ref().child("eventImage/$dateTime");
-    await reference.putData(await pickedFile!.readAsBytes(),
-        SettableMetadata(contentType: 'image/jpeg'));
+    Reference reference = FirebaseStorage.instance.ref().child("eventImage/$dateTime");
+    await reference.putData(await pickedFile!.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
     imageUrl = await reference.getDownloadURL();
     print(imageUrl);
-    setState(() {});
+    setState(() { loading = false; });
   }
 }

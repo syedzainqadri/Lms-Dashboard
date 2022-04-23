@@ -61,7 +61,6 @@ class _AddHomeBottomBannerDialogState extends State<AddHomeBottomBannerDialog> {
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -132,7 +131,7 @@ class _AddHomeBottomBannerDialogState extends State<AddHomeBottomBannerDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            await AddHomeBottomBanner().addHomeTopBanner(imageUrl, _eventUrlController.text, status);
+                            await AddHomeBottomBanner().addHomeBottomBanner(imageUrl, _eventUrlController.text, status);
                             Get.offAllNamed('/root');
                           },
                           child: Container(

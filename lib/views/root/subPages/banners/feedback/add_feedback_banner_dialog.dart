@@ -55,13 +55,12 @@ class _AddFeedbackBannerDialogState extends State<AddFeedbackBannerDialog> {
                 children: [
                   buildSpaceVertical(2.h),
                   Center(child: textStyle4("Add New Feedback Banner", TextAlign.center,
-                      ColorManager.primaryColor)),
+                      ColorManager.darkColor)),
 
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -73,7 +72,7 @@ class _AddFeedbackBannerDialogState extends State<AddFeedbackBannerDialog> {
                         width: 10.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: ColorManager.primaryColor,
+                          color: ColorManager.darkColor,
                         ),
                         child: Center(
                             child: textStyle2("Add Banner", TextAlign.center,
@@ -89,7 +88,7 @@ class _AddFeedbackBannerDialogState extends State<AddFeedbackBannerDialog> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         textStyle3(StringsManager.status, TextAlign.center,
-                            ColorManager.primaryColor),
+                            ColorManager.darkColor),
                         ToggleSwitch(
                           customWidths: const [50.0, 50.0],
                           cornerRadius: 20.0,
@@ -121,7 +120,7 @@ class _AddFeedbackBannerDialogState extends State<AddFeedbackBannerDialog> {
                     child: const Divider(
                         height: 1,
                         thickness: 1,
-                        color: ColorManager.primaryColor),
+                        color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   Row(
@@ -139,7 +138,7 @@ class _AddFeedbackBannerDialogState extends State<AddFeedbackBannerDialog> {
                             height: 5.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: ColorManager.primaryColor,
+                              color: ColorManager.darkColor,
                             ),
                             child: Center(
                               child: textStyle3("SAVE", TextAlign.center,

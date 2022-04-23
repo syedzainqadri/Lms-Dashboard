@@ -57,13 +57,12 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                 children: [
                   buildSpaceVertical(2.h),
                   Center(child: textStyle4("Add New Event Detail Banner", TextAlign.center,
-                      ColorManager.primaryColor)),
+                      ColorManager.darkColor)),
 
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
@@ -75,7 +74,7 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                         width: 10.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: ColorManager.primaryColor,
+                          color: ColorManager.darkColor,
                         ),
                         child: Center(
                             child: textStyle2("Add Banner", TextAlign.center,
@@ -91,7 +90,7 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         textStyle3(StringsManager.status, TextAlign.center,
-                            ColorManager.primaryColor),
+                            ColorManager.darkColor),
                         ToggleSwitch(
                           customWidths: const [50.0, 50.0],
                           cornerRadius: 20.0,
@@ -123,7 +122,7 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                     child: const Divider(
                         height: 1,
                         thickness: 1,
-                        color: ColorManager.primaryColor),
+                        color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   Row(
@@ -141,7 +140,7 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                             height: 5.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: ColorManager.primaryColor,
+                              color: ColorManager.darkColor,
                             ),
                             child: Center(
                               child: textStyle3("SAVE", TextAlign.center,

@@ -71,14 +71,13 @@ class _ViewEventDetailBannerDialogState extends State<ViewEventDetailBannerDialo
                   buildSpaceVertical(2.h),
                   Center(
                       child: textStyle4("View Event Detail Banner", TextAlign.center,
-                          ColorManager.primaryColor)),
+                          ColorManager.darkColor)),
                   buildSpaceVertical(2.h),
                   Center(child: Image.network(url, height: 200, width: 350)),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                       controller: _eventUrlController,
                       hintName: StringsManager.eventUrl,
-                      icon: Icons.description,
                       isLarge: size.width > 800 ? true : false,
                       isEnable: false
                   ),
@@ -89,7 +88,7 @@ class _ViewEventDetailBannerDialogState extends State<ViewEventDetailBannerDialo
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        textStyle3(StringsManager.status, TextAlign.center, ColorManager.primaryColor),
+                        textStyle3(StringsManager.status, TextAlign.center, ColorManager.darkColor),
                         ToggleSwitch(
                           customWidths: const [50.0, 50.0],
                           cornerRadius: 20.0,
@@ -116,7 +115,7 @@ class _ViewEventDetailBannerDialogState extends State<ViewEventDetailBannerDialo
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width / 2),
                     child: const Divider(
-                        height: 1, thickness: 1, color: ColorManager.primaryColor),
+                        height: 1, thickness: 1, color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   buildSpaceVertical(1.h),

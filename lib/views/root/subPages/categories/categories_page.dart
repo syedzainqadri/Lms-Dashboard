@@ -21,7 +21,7 @@ class CategoriesPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle6("Events", TextAlign.left, ColorManager.primaryColor),
+                textStyle6("Events", TextAlign.left, ColorManager.darkColor),
                 InkWell(
                     onTap: () {
                       showDialog(

@@ -76,7 +76,6 @@ class _ViewHomeTopBannerDialogState extends State<ViewHomeTopBannerDialog> {
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                     isEnable: false
                   ),

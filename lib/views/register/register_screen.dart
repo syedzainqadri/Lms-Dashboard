@@ -62,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
                         child: CircularProgressIndicator(
                             value: 20,
                             backgroundColor: ColorManager.grayColor,
-                            color: ColorManager.primaryColor))
+                            color: ColorManager.darkColor))
                     : SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -82,21 +82,18 @@ class RegisterScreen extends StatelessWidget {
                                 CustomTextField(
                                   controller: _nameController,
                                   hintName: StringsManager.name,
-                                  icon: Icons.person,
                                   isLarge: size.width > 600 ? true : false,
                                 ),
                                 buildSpaceVertical(2.h),
                                 CustomTextField(
                                   controller: _emailController,
                                   hintName: StringsManager.email,
-                                  icon: Icons.email,
                                   isLarge: size.width > 600 ? true : false,
                                 ),
                                 buildSpaceVertical(2.h),
                                 CustomTextField(
                                   controller: _passwordController,
                                   hintName: StringsManager.passHint,
-                                  icon: Icons.lock,
                                   isPass: true,
                                   isLarge: size.width > 600 ? true : false,
                                   passwordVisibility: _passwordVisibleOne,
@@ -105,7 +102,6 @@ class RegisterScreen extends StatelessWidget {
                                 CustomTextField(
                                   controller: _confirmPasswordController,
                                   hintName: StringsManager.cPassHint,
-                                  icon: Icons.lock,
                                   isPass: true,
                                   isLarge: size.width > 600 ? true : false,
                                   passwordVisibility: _passwordVisibleTwo,
@@ -142,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                                       TextSpan(
                                           text: 'Sign In',
                                           style: GoogleFonts.openSans(
-                                              color: ColorManager.primaryColor,
+                                              color: ColorManager.darkColor,
                                               decoration:
                                                   TextDecoration.underline,
                                               fontWeight: FontWeight.bold),

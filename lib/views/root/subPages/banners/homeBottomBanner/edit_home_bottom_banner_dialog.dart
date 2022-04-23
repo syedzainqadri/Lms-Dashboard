@@ -107,7 +107,6 @@ class _EditHomeBottomBannerDialogState extends State<EditHomeBottomBannerDialog>
                   CustomTextField(
                     controller: _eventUrlController,
                     hintName: StringsManager.eventUrl,
-                    icon: Icons.description,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),

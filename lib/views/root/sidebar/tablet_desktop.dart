@@ -21,7 +21,7 @@ class TabletSidebar extends StatelessWidget {
             buildSpaceVertical(4.h),
             Image.asset(AssetImages.logo, height: 6.h, width: 10.w),
             buildSpaceVertical(2.h),
-            const Divider(thickness: 2, color: ColorManager.primaryColor),
+            const Divider(thickness: 2, color: ColorManager.secondaryColor),
             buildSpaceVertical(4.h),
             Expanded(
               child: ListView.builder(

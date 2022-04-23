@@ -48,7 +48,7 @@ class _DonationBannerTableState extends State<DonationBannerTable> {
             decoration: BoxDecoration(
               color: ColorManager.whiteColor,
               border: Border.all(
-                  color: ColorManager.primaryColor.withOpacity(.4), width: .5),
+                  color: ColorManager.darkColor.withOpacity(.4), width: .5),
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 6),
@@ -65,7 +65,7 @@ class _DonationBannerTableState extends State<DonationBannerTable> {
                 Row(
                   children: [
                     buildSpaceVertical(2.h),
-                    textStyle3("Donation Banner", TextAlign.left, ColorManager.primaryColor),
+                    textStyle3("Donation Banner", TextAlign.left, ColorManager.darkColor),
                   ],
                 ),
                 DataTable2(
@@ -108,7 +108,7 @@ class _DonationBannerTableState extends State<DonationBannerTable> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.visibility),
-                            color: ColorManager.primaryColor,
+                            color: ColorManager.darkColor,
                             iconSize: 24,
                             onPressed: () {
                               showDialog(
