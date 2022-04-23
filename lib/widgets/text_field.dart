@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -34,14 +37,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: widget.isLarge ? AppPadding.p20 : AppPadding.p6),
+      padding: EdgeInsets.symmetric(horizontal: widget.isLarge ? AppPadding.p20 : AppPadding.p6),
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.isPass ? !widget.passwordVisibility : false,
         enabled: widget.isEnable,
         keyboardType: widget.inputType,
         maxLines: widget.inputLines,
+        style: const TextStyle(fontSize: AppSize.s12, fontWeight: FontWeight.normal),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter ${widget.hintName}';
@@ -50,24 +53,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
-            borderSide: BorderSide(color: ColorManager.primaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+            borderSide: BorderSide(color: ColorManager.grayColor),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
-            borderSide: BorderSide(color: ColorManager.primaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+            borderSide: BorderSide(color: ColorManager.grayColor),
           ),
           errorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
             borderSide: BorderSide(color: ColorManager.redColor),
           ),
           focusedErrorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
             borderSide: BorderSide(color: ColorManager.redColor),
           ),
           disabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s22)),
-            borderSide: BorderSide(color: ColorManager.primaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+            borderSide: BorderSide(color: ColorManager.grayColor),
           ),
           suffixIcon: widget.isPass
               ? IconButton(
@@ -85,8 +88,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 )
               : const SizedBox.shrink(),
           hintText: widget.hintName,
-          hintStyle:
-              TextStyle(fontSize: widget.isLarge ? AppSize.s12 : AppSize.s10),
+          // hintStyle: TextStyle(fontSize: 10),
+          hintStyle: TextStyle(fontSize: widget.isLarge ? AppSize.s10 : AppSize.s8),
+
           fillColor: widget.color,
           filled: true,
         ),

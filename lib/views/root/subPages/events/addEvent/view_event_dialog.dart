@@ -14,15 +14,15 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class ViewCategoryDialog extends StatefulWidget {
+class ViewEventDialog extends StatefulWidget {
   final String id;
-  const ViewCategoryDialog({Key? key, required this.id}) : super(key: key);
+  const ViewEventDialog({Key? key, required this.id}) : super(key: key);
 
   @override
-  _ViewCategoryDialogState createState() => _ViewCategoryDialogState();
+  _ViewEventDialogState createState() => _ViewEventDialogState();
 }
 
-class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
+class _ViewEventDialogState extends State<ViewEventDialog> {
   final _eventNameController = TextEditingController();
   final _urlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -104,7 +104,7 @@ class _ViewCategoryDialogState extends State<ViewCategoryDialog> {
                 children: [
                   buildSpaceVertical(2.h),
                   Center(
-                      child: textStyle4("Edit Event", TextAlign.center, ColorManager.darkColor)),
+                      child: textStyle4("View Event", TextAlign.center, ColorManager.darkColor)),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventNameController,

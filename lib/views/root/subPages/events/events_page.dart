@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/widgets/add_button.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/widgets/categories_table.dart';
-import 'addCategory/add_event_dialog.dart';
+import 'package:lmsadminpanle/views/root/subPages/events/widgets/event_table.dart';
+import 'addEvent/add_event_dialog.dart';
+import 'widgets/add_button.dart';
 
-class CategoriesPage extends StatelessWidget {
-  const CategoriesPage({Key? key}) : super(key: key);
+class EventsPage extends StatelessWidget {
+  const EventsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class CategoriesPage extends StatelessWidget {
                     child: addButton("Add Events", width > 800 ? false : true)),
               ],
             ),
-            const CategoriesTable(),
+            const EventsTable(),
           ],
         ),
       ),

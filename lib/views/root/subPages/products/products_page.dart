@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/widgets/top_card.dart';
+import 'package:lmsadminpanle/views/root/subPages/events/widgets/top_card.dart';
 import 'widgets/product_table.dart';
 
 class ProductsPage extends StatelessWidget {

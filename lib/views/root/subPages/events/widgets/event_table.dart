@@ -6,22 +6,21 @@ import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/delete_event_dialog.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/addCategory/edit_event_dialog.dart';
-import 'package:lmsadminpanle/views/root/subPages/banners/homeTopBanner/view_home_top_banner_dialog.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
-import '../addCategory/view_event_dialog.dart';
+import '../addEvent/delete_event_dialog.dart';
+import '../addEvent/edit_event_dialog.dart';
+import '../addEvent/view_event_dialog.dart';
 
-class CategoriesTable extends StatefulWidget {
-  const CategoriesTable({Key? key}) : super(key: key);
+class EventsTable extends StatefulWidget {
+  const EventsTable({Key? key}) : super(key: key);
 
   @override
-  State<CategoriesTable> createState() => _CategoriesTableState();
+  State<EventsTable> createState() => _EventsTableState();
 }
 
-class _CategoriesTableState extends State<CategoriesTable> {
+class _EventsTableState extends State<EventsTable> {
 
 
   final GetEventController _eventController = Get.put(GetEventController());
@@ -127,7 +126,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                               barrierColor: Colors.black26,
                               context: context,
                               builder: (context) {
-                                return ViewCategoryDialog(id: eventModel[index].id!);
+                                return ViewEventDialog(id: eventModel[index].id!);
                               },
                             );
                           },
@@ -142,7 +141,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                               barrierColor: Colors.black26,
                               context: context,
                               builder: (context) {
-                                return EditCategoryDialog(id: eventModel[index].id!);
+                                return EditEventDialog(id: eventModel[index].id!);
                               },
                             );
                           },
@@ -157,7 +156,7 @@ class _CategoriesTableState extends State<CategoriesTable> {
                               barrierColor: Colors.black26,
                               context: context,
                               builder: (context) {
-                                return DeleteCategoryDialog(id: eventModel[index].id!);
+                                return DeleteEventDialog(id: eventModel[index].id!);
                               },
                             );
                           },

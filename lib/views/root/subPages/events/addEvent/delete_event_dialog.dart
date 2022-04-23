@@ -7,15 +7,15 @@ import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
-class DeleteCategoryDialog extends StatefulWidget {
+class DeleteEventDialog extends StatefulWidget {
   final String id;
-  const DeleteCategoryDialog({Key? key, required this.id}) : super(key: key);
+  const DeleteEventDialog({Key? key, required this.id}) : super(key: key);
 
   @override
-  _DeleteCategoryDialogState createState() => _DeleteCategoryDialogState();
+  _DeleteEventDialogState createState() => _DeleteEventDialogState();
 }
 
-class _DeleteCategoryDialogState extends State<DeleteCategoryDialog> {
+class _DeleteEventDialogState extends State<DeleteEventDialog> {
 
   final DeleteEventController _deleteEventController = Get.put(DeleteEventController());
   @override

@@ -17,15 +17,15 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class EditCategoryDialog extends StatefulWidget {
+class EditEventDialog extends StatefulWidget {
   final String id;
-  const EditCategoryDialog({Key? key, required this.id}) : super(key: key);
+  const EditEventDialog({Key? key, required this.id}) : super(key: key);
 
   @override
-  _EditCategoryDialogState createState() => _EditCategoryDialogState();
+  _EditEventDialogState createState() => _EditEventDialogState();
 }
 
-class _EditCategoryDialogState extends State<EditCategoryDialog> {
+class _EditEventDialogState extends State<EditEventDialog> {
   final _eventNameController = TextEditingController();
   final _eventUrlController = TextEditingController();
   final _descriptionController = TextEditingController();

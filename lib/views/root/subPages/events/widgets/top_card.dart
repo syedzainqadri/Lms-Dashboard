@@ -3,7 +3,7 @@ import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
-import 'package:lmsadminpanle/views/root/subPages/categories/widgets/add_button.dart';
+import 'package:lmsadminpanle/views/root/subPages/events/widgets/add_button.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
