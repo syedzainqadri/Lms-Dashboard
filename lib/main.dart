@@ -7,6 +7,7 @@ import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'firebase_options.dart';
+import 'utils/helpers/scroll_controller.dart';
 
 String? userId;
 void main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         getPages: AppRoutes.routes,
         initialRoute: userId != null ? "/root" : "/",
-        scrollBehavior: const ScrollBehavior(),
+        scrollBehavior: MyCustomScrollBehavior(),
         theme: ThemeData(
           primaryColor: ColorManager.primaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,

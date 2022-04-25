@@ -7,10 +7,12 @@ import 'package:lmsadminpanle/views/root/sidebar/desktop_sidebar.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/views/root/sidebar/tablet_desktop.dart';
 import 'package:lmsadminpanle/views/root/subPages/banners/banners_page.dart';
+import 'package:lmsadminpanle/views/root/subPages/donations/donation_table.dart';
 import 'package:lmsadminpanle/views/root/subPages/donations/donations_screen.dart';
 import 'package:lmsadminpanle/views/root/subPages/events/events_page.dart';
 import 'package:sizer/sizer.dart';
 import 'sidebar/mobile_sidebar.dart';
+import 'subPages/donations/dummy.dart';
 import 'subPages/feedback/feedbacks_screen.dart';
 import 'subPages/volunteer/volunteers_screen.dart';
 
@@ -74,7 +76,7 @@ class _RootViewState extends State<RootView> {
               children: const [
                 EventsPage(),
                 BannersPage(),
-                DonationsPage(),
+                DonationTable(),
                 FeedbacksPage(),
                 VolunteersPage(),
               ],
