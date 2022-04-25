@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:advanced_datatable/advanced_datatable_source.dart';
 import 'package:advanced_datatable/datatable.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,10 @@ class _DonationTableState extends State<DonationTable> {
   final _searchController = TextEditingController();
   final DonationController _donationController = Get.put(DonationController());
   List<DonationModel> donationModel = [];
+  List<Map<String, String>> masterList = [
+    {"totalRows" : "0"},
+
+  ];
 
 
 
@@ -35,7 +41,28 @@ class _DonationTableState extends State<DonationTable> {
 
   getData() async{
     donationModel = (await _donationController.getDonationsData())!;
+
+    List<Map<String, dynamic>> doModel = [];
+    var jsonData = jsonEncode(doModel.toString());
+
+    for(int i=0; i<donationModel.length; i++){
+      // print("****** "+ donationModel[i].name!);
+      // print(donationToJson(i));
+      doModel.add(donationToJson(i));
+    }
+    print(doModel);
+    print(jsonEncode(doModel));
+    print("**********");
     setState(() { });
+  }
+  Map<String, dynamic> donationToJson(int i) {
+    return {
+      "name" : donationModel[i].name,
+      "amount" : donationModel[i].amount,
+      "city" : donationModel[i].city,
+      "project" : donationModel[i].project,
+      "transactionID" : donationModel[i].transactionID,
+    };
   }
 
   @override
@@ -195,20 +222,28 @@ class DonationTableSource extends AdvancedDataTableSource<DonationModel> {
     setNextView();
   }
 
+  Map<String, dynamic> donationToJson(int i) {
+    return {
+      "name" : donationModel[i].name,
+      "amount" : donationModel[i].amount,
+      "city" : donationModel[i].city,
+      "project" : donationModel[i].project,
+      "transactionID" : donationModel[i].transactionID,
+    };
+  }
+
   @override
   Future<RemoteDataSourceDetails<DonationModel>> getNextPage(NextPageRequest pageRequest) async {
-    final queryParameter = <String, dynamic>{
-      'offset': pageRequest.offset.toString(),
-      'pageSize': pageRequest.pageSize.toString(),
-      'sortIndex': ((pageRequest.columnSortIndex ?? 0) + 1).toString(),
-      'sortAsc': ((pageRequest.sortAscending ?? true) ? 1 : 0).toString(),
-      if (lastSearchTerm.isNotEmpty) 'nameFilter': lastSearchTerm,
-    };
+
+    List<DonationModel> doModel = donationModel;
+    var jsonData = jsonEncode(doModel);
+    print(jsonData);
+
 
     if (donationModel.isNotEmpty) {
       donationModel = (await _donationController.getDonationsData())!;
       print("**************************  "+donationModel.length.toString());
-      return RemoteDataSourceDetails(donationModel.length, (donationModel),
+      return RemoteDataSourceDetails(donationModel.length, (donationToJson(i)),
             filteredRows: lastSearchTerm.isNotEmpty ? donationModel.length : null,
       );
     } else {
