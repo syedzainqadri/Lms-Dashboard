@@ -9,7 +9,10 @@ import 'package:lmsadminpanle/models/donation_model.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:sizer/sizer.dart';
+import '../../../../controllers/title_controller.dart';
 import '../../../../utils/constants/color_manager.dart';
+import '../../../../utils/constants/strings_manager.dart';
+import '../../../../widgets/text_field.dart';
 
 
 class DonationsPage extends StatefulWidget {
@@ -23,17 +26,25 @@ class _DonationsPageState extends State<DonationsPage> {
 
   final DonationController _donationController = Get.put(DonationController());
   List<DonationModel> donationModel = [];
+  List<DonationModel> searchedModel = [];
+  int _currentSortColumn = 0;
+  bool _isAscending = true;
+  final TitleController titleController = Get.put(TitleController());
+  final _searchController = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // titleController.title = titleController.changeName("Donations List");
     getData();
   }
 
-  getData() async{
+  getData() async {
     donationModel = (await _donationController.getDonationsData())!;
-    setState(() { });
+    setState(() {
+      searchedModel = donationModel;
+    });
   }
 
   @override
@@ -64,72 +75,119 @@ class _DonationsPageState extends State<DonationsPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 buildSpaceVertical(3.h),
-                Center(child: textStyle6("Donations List", TextAlign.left, ColorManager.darkColor)),
+                ListTile(
+                  leading: Icon(Icons.search),
+                  title: TextField(
+                      controller: _searchController,
+                      decoration: const InputDecoration(hintText: 'Search', border: InputBorder.none),
+                      onChanged: (value) {
+                        setState(() {
+                          _searchResult = value;
+                          searchedModel = donationModel.where((donations) => donations.name!.contains(_searchResult)
+                              || donations.project!.contains(_searchResult)).toList();
+                        });
+                      }),
+                  trailing: IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        _searchController.clear();
+                        _searchResult = '';
+                        searchedModel = donationModel;
+                      });
+                    },
+                  ),
+                ),
                 buildSpaceVertical(5.h),
                 DataTable2(
                   columnSpacing: 12,
                   horizontalMargin: 12,
                   minWidth: 600,
-                  border: TableBorder.all(
-                      width: 1.0,
-                      color: ColorManager.darkColor),
+                  sortColumnIndex: _currentSortColumn,
+                  sortAscending: _isAscending,
+
+                  // border: TableBorder.all(width: 1.0, color: ColorManager.darkColor),
                   columns: [
                     DataColumn(
-                      label: width > 800 ? Center(child: textStyle2("Name", TextAlign.center, ColorManager.blackColor))
-                          : Center(child: textStyle0_5("Name", TextAlign.center, ColorManager.blackColor)),
+                      label: width > 800 ? textStyle2("Name", TextAlign.center, ColorManager.blackColor)
+                          : textStyle0_5("Name", TextAlign.center, ColorManager.blackColor),
+                      onSort: (columnIndex, _) {
+                        setState(() {
+                          _currentSortColumn = columnIndex;
+                          if (_isAscending == true) {
+                            _isAscending = false;
+                            searchedModel.sort((productA, productB) => productB.name!.toLowerCase().compareTo(productA.name!.toLowerCase()));
+                          } else {
+                            _isAscending = true;
+                            searchedModel.sort((productA, productB) => productA.name!.toLowerCase().compareTo(productB.name!.toLowerCase()));
+                          }
+                        });
+                      }
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Project", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Project", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Project", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Project", TextAlign.center, ColorManager.blackColor)
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("City", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("City", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("City", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("City", TextAlign.center, ColorManager.blackColor)
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Amount", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Amount", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Amount", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Amount", TextAlign.center, ColorManager.blackColor),
+                        onSort: (columnIndex, _) {
+                          setState(() {
+                            _currentSortColumn = columnIndex;
+                            if (_isAscending == true) {
+                              _isAscending = false;
+                              searchedModel.sort((productA, productB) => productB.amount!.compareTo(productA.amount!));
+                            } else {
+                              _isAscending = true;
+                              searchedModel.sort((productA, productB) => productA.amount!.compareTo(productB.amount!));
+                            }
+                          });
+                        }
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Transaction ID", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Transaction ID", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Transaction ID", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Transaction ID", TextAlign.center, ColorManager.blackColor)
                     ),
 
                   ],
-                  rows: List<DataRow>.generate(donationModel.length,
+                  rows: List<DataRow>.generate(searchedModel.length,
                         (index) => DataRow(cells: [
                       DataCell(width > 800
-                          ? textStyle2("${donationModel[index].name}", TextAlign.left,
+                          ? textStyle2("${searchedModel[index].name}", TextAlign.left,
                           ColorManager.blackColor)
-                          : textStyle0_5("${donationModel[index].name}", TextAlign.left,
+                          : textStyle0_5("${searchedModel[index].name}", TextAlign.left,
                           ColorManager.blackColor)),
 
                           DataCell(width > 800
-                              ? textStyle2("${donationModel[index].project}", TextAlign.left,
+                              ? textStyle2("${searchedModel[index].project}", TextAlign.left,
                               ColorManager.blackColor)
-                              : textStyle0_5("${donationModel[index].project}", TextAlign.left,
+                              : textStyle0_5("${searchedModel[index].project}", TextAlign.left,
                               ColorManager.blackColor)),
 
                           DataCell(width > 800
-                              ? textStyle2("${donationModel[index].city}", TextAlign.left,
+                              ? textStyle2("${searchedModel[index].city}", TextAlign.left,
                               ColorManager.blackColor)
-                              : textStyle0_5("${donationModel[index].city}", TextAlign.left,
+                              : textStyle0_5("${searchedModel[index].city}", TextAlign.left,
                               ColorManager.blackColor)),
 
                           DataCell(width > 800
-                              ? textStyle2("${donationModel[index].amount}", TextAlign.left,
+                              ? textStyle2("${searchedModel[index].amount}", TextAlign.left,
                               ColorManager.blackColor)
-                              : textStyle0_5("${donationModel[index].amount}", TextAlign.left,
+                              : textStyle0_5("${searchedModel[index].amount}", TextAlign.left,
                               ColorManager.blackColor)),
 
                           DataCell(width > 800
-                              ? textStyle2("${donationModel[index].transactionID}", TextAlign.left,
+                              ? textStyle2("${searchedModel[index].transactionID}", TextAlign.left,
                               ColorManager.blackColor)
-                              : textStyle0_5("${donationModel[index].transactionID}", TextAlign.left,
+                              : textStyle0_5("${searchedModel[index].transactionID}", TextAlign.left,
                               ColorManager.blackColor)),
 
 

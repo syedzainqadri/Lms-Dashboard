@@ -1,9 +1,7 @@
 
 
 
-import 'package:flutter/material.dart';
-
-import '../views/root/subPages/donations/dummy.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DonationModel {
   String? id;
@@ -15,22 +13,6 @@ class DonationModel {
 
   DonationModel({this.id, this.name, this.amount, this.city, this.project, this.transactionID});
 
-  DataRow getRow(SelectedCallBack callback, List<String> selectedIds) {
-    return DataRow(
-      cells: [
-        DataCell(Text(name!)),
-        DataCell(Text(project!)),
-        DataCell(Text(city!)),
-        DataCell(Text(amount!)),
-        DataCell(Text(transactionID!)),
-      ],
-      onSelectChanged: (newState) {
-        callback(id.toString(), newState ?? false);
-      },
-      selected: selectedIds.contains(id.toString()),
-    );
-  }
-
   DonationModel.fromFireStore(Map<String, dynamic> doc) {
     id = doc['id'];
     name = doc['name'];
@@ -38,5 +20,20 @@ class DonationModel {
     city = doc['city'];
     project = doc['project'];
     transactionID = doc['transactionID'];
+  }
+
+  List<DonationModel> dataListFromSnapshot(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs.map((snapshot) {
+      final Map<String, dynamic> dataMap = snapshot.data() as Map<String, dynamic>;
+
+      return DonationModel(
+          id: dataMap['id'],
+          name: dataMap['name'],
+          amount: dataMap['amount'],
+          city: dataMap['city'],
+          project: dataMap['project'],
+          transactionID: dataMap['transactionID']
+      );
+    }).toList();
   }
 }

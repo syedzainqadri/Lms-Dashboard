@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/controllers/sidebar_controller.dart';
+import 'package:lmsadminpanle/controllers/title_controller.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
@@ -7,12 +8,10 @@ import 'package:lmsadminpanle/views/root/sidebar/desktop_sidebar.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/views/root/sidebar/tablet_desktop.dart';
 import 'package:lmsadminpanle/views/root/subPages/banners/banners_page.dart';
-import 'package:lmsadminpanle/views/root/subPages/donations/donation_table.dart';
 import 'package:lmsadminpanle/views/root/subPages/donations/donations_screen.dart';
 import 'package:lmsadminpanle/views/root/subPages/events/events_page.dart';
 import 'package:sizer/sizer.dart';
 import 'sidebar/mobile_sidebar.dart';
-import 'subPages/donations/dummy.dart';
 import 'subPages/feedback/feedbacks_screen.dart';
 import 'subPages/volunteer/volunteers_screen.dart';
 
@@ -27,6 +26,7 @@ class _RootViewState extends State<RootView> {
   final SideBarController _sideBarController = Get.put(SideBarController());
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   bool show = false;
+  final TitleController titleController = Get.put(TitleController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +36,7 @@ class _RootViewState extends State<RootView> {
       appBar: AppBar(
         backgroundColor: ColorManager.darkColor,
         elevation: 0,
+        title: Obx(() => textStyle5(titleController.title.toString() ?? "", TextAlign.center, ColorManager.whiteColor)),
         // iconTheme: const IconThemeData(color: ColorManager.whiteColor),
         // automaticallyImplyLeading: true,
         leading: IconButton(
@@ -46,7 +47,6 @@ class _RootViewState extends State<RootView> {
             });
             if(size > 200 && size < 500) {
               _sideBarController.scaffoldKey.currentState?.openDrawer();
-              print("here");
             }
           },
         ),
@@ -76,7 +76,7 @@ class _RootViewState extends State<RootView> {
               children: const [
                 EventsPage(),
                 BannersPage(),
-                DonationTable(),
+                DonationsPage(),
                 FeedbacksPage(),
                 VolunteersPage(),
               ],

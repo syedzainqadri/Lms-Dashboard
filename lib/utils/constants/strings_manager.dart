@@ -32,6 +32,7 @@ class StringsManager {
   static const String register = "SIGN UP";
   static const String continued = "CONTINUE";
   static const String passUnMatch = "Password Not Matched";
+  static const String search = "SEARCH BY NAME, PROJECT";
 
   // success screen
   static const String registerSuccess = "Registered Successfully";
