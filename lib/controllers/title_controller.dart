@@ -5,8 +5,7 @@ class TitleController extends GetxController {
   var title = "Events List".obs;
 
   changeName(String value) {
-    title.value = value;
-    update();
+    title(value).obs;
   }
 
 }

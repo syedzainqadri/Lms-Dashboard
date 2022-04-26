@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../controllers/title_controller.dart';
 import '../../../../utils/constants/color_manager.dart';
 import '../../../../utils/constants/strings_manager.dart';
+import '../../../../utils/constants/values_manager.dart';
 import '../../../../widgets/text_field.dart';
 
 
@@ -36,7 +37,9 @@ class _DonationsPageState extends State<DonationsPage> {
   @override
   void initState() {
     super.initState();
-    // titleController.title = titleController.changeName("Donations List");
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      titleController.changeName("Donations List");
+    });
     getData();
   }
 
@@ -54,7 +57,7 @@ class _DonationsPageState extends State<DonationsPage> {
       body: Obx(() {
         return _donationController.isLoading.isTrue ? const Center(child: CircularProgressIndicator())
             :
-        donationModel.isNotEmpty ?
+        searchedModel.isNotEmpty ?
         Container(
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
@@ -76,19 +79,49 @@ class _DonationsPageState extends State<DonationsPage> {
               children: [
                 buildSpaceVertical(3.h),
                 ListTile(
-                  leading: Icon(Icons.search),
+                  leading: const Icon(Icons.search),
                   title: TextField(
                       controller: _searchController,
-                      decoration: const InputDecoration(hintText: 'Search', border: InputBorder.none),
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        hintText: StringsManager.search,
+                        // hintStyle: TextStyle(fontSize: 10),
+                        hintStyle: TextStyle(fontSize: AppSize.s10),
+
+                        fillColor: ColorManager.whiteColor,
+                        filled: true,
+                      ),
                       onChanged: (value) {
                         setState(() {
                           _searchResult = value;
-                          searchedModel = donationModel.where((donations) => donations.name!.contains(_searchResult)
-                              || donations.project!.contains(_searchResult)).toList();
+                          searchedModel = searchedModel.where((donations) => donations.name!.toLowerCase().contains(_searchResult.toLowerCase())
+                              || donations.city!.toLowerCase().contains(_searchResult.toLowerCase())
+                              // || donations.project!.toLowerCase().contains(_searchResult.toLowerCase())
+                              || donations.transactionID!.contains(_searchResult.toLowerCase())
+                          ).toList();
                         });
                       }),
                   trailing: IconButton(
-                    icon: Icon(Icons.cancel),
+                    icon: const Icon(Icons.cancel),
                     onPressed: () {
                       setState(() {
                         _searchController.clear();
@@ -105,7 +138,6 @@ class _DonationsPageState extends State<DonationsPage> {
                   minWidth: 600,
                   sortColumnIndex: _currentSortColumn,
                   sortAscending: _isAscending,
-
                   // border: TableBorder.all(width: 1.0, color: ColorManager.darkColor),
                   columns: [
                     DataColumn(

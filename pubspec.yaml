@@ -51,7 +51,6 @@ dependencies:
   file_picker:
   image_picker:
   advanced_datatable: ^0.0.7+hotfix
-  firestore_search: ^0.1.9
 
 dev_dependencies:
   flutter_test:

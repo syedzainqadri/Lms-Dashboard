@@ -17,6 +17,7 @@ import '../../../../controllers/eventDetail/add_eventDetail_banner_controller.da
 import '../../../../controllers/feedback/add_feedback_banner_controller.dart';
 import '../../../../controllers/homeBottomBanner/add_home_bottom_banner_controller.dart';
 import '../../../../controllers/homeTopBanner/add_home_topbanner.dart';
+import '../../../../controllers/title_controller.dart';
 import '../../../../controllers/volunteer/add_volunteer_banner_controller.dart';
 import '../../../../utils/constants/strings_manager.dart';
 import '../../../../utils/helpers/helper.dart';
@@ -54,6 +55,16 @@ class _BannersPageState extends State<BannersPage> {
   bool loading5 = false;
   bool loading6 = false;
   final ImagePicker _picker = ImagePicker();
+  final TitleController titleController = Get.put(TitleController());
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      titleController.changeName("Banners");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +91,6 @@ class _BannersPageState extends State<BannersPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                buildSpaceVertical(3.h),
-                Center(child: textStyle6("Banners", TextAlign.left, ColorManager.darkColor)),
                 buildSpaceVertical(5.h),
                 DataTable2(
                   columnSpacing: 12,

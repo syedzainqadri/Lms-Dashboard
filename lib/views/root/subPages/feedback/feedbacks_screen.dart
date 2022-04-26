@@ -10,7 +10,9 @@ import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:sizer/sizer.dart';
+import '../../../../controllers/title_controller.dart';
 import '../../../../utils/constants/color_manager.dart';
+import '../../../../utils/constants/strings_manager.dart';
 
 
 class FeedbacksPage extends StatefulWidget {
@@ -24,17 +26,28 @@ class _FeedbacksPageState extends State<FeedbacksPage> {
 
   final FeedbackController _feedbackController = Get.put(FeedbackController());
   List<FeedbackModel> feedbackModel = [];
+  List<FeedbackModel> searchedModel = [];
+  int _currentSortColumn = 0;
+  bool _isAscending = true;
+  final TitleController titleController = Get.put(TitleController());
+  final _searchController = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      titleController.changeName("Feedbacks List");
+    });
     getData();
   }
 
+
   getData() async{
     feedbackModel = (await _feedbackController.getFeedbackData())!;
-    setState(() { });
+    setState(() {
+      searchedModel = feedbackModel;
+    });
   }
 
   @override
@@ -44,7 +57,7 @@ class _FeedbacksPageState extends State<FeedbacksPage> {
       body: Obx(() {
         return _feedbackController.isLoading.isTrue ? const Center(child: CircularProgressIndicator())
             :
-        feedbackModel.isNotEmpty ?
+        searchedModel.isNotEmpty ?
         Container(
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
@@ -65,58 +78,112 @@ class _FeedbacksPageState extends State<FeedbacksPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 buildSpaceVertical(3.h),
-                Center(child: textStyle6("Feedbacks List", TextAlign.left, ColorManager.darkColor)),
+                ListTile(
+                  leading: const Icon(Icons.search),
+                  title: TextField(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s5)),
+                          borderSide: BorderSide(color: ColorManager.grayColor),
+                        ),
+                        hintText: StringsManager.searchF,
+                        // hintStyle: TextStyle(fontSize: 10),
+                        hintStyle: TextStyle(fontSize: AppSize.s10),
+
+                        fillColor: ColorManager.whiteColor,
+                        filled: true,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _searchResult = value;
+                          searchedModel = searchedModel.where((donations) => donations.project!.toLowerCase().contains(_searchResult.toLowerCase())
+                          ).toList();
+                        });
+                      }),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        _searchController.clear();
+                        _searchResult = '';
+                        searchedModel = feedbackModel;
+                      });
+                    },
+                  ),
+                ),
                 buildSpaceVertical(5.h),
                 DataTable2(
                   columnSpacing: 12,
                   horizontalMargin: 12,
                   minWidth: 600,
-                  border: TableBorder.all(
-                      width: 1.0,
-                      color: ColorManager.darkColor),
+                  sortColumnIndex: _currentSortColumn,
+                  sortAscending: _isAscending,
                   columns: [
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Project", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Project", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Project", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Project", TextAlign.center, ColorManager.blackColor),
+                        onSort: (columnIndex, _) {
+                          setState(() {
+                            _currentSortColumn = columnIndex;
+                            if (_isAscending == true) {
+                              _isAscending = false;
+                              searchedModel.sort((productA, productB) => productB.project!.toLowerCase().compareTo(productA.project!.toLowerCase()));
+                            } else {
+                              _isAscending = true;
+                              searchedModel.sort((productA, productB) => productA.project!.toLowerCase().compareTo(productB.project!.toLowerCase()));
+                            }
+                          });
+                        }
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Rating", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Rating", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Rating", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Rating", TextAlign.center, ColorManager.blackColor)
                     ),
                     DataColumn(
                         label: width > 800
-                            ? Center(child: textStyle2("Remarks", TextAlign.center, ColorManager.blackColor))
-                            : Center(child: textStyle0_5("Remarks", TextAlign.center, ColorManager.blackColor))
+                            ? textStyle2("Remarks", TextAlign.center, ColorManager.blackColor)
+                            : textStyle0_5("Remarks", TextAlign.center, ColorManager.blackColor)
                     ),
 
                   ],
-                  rows: List<DataRow>.generate(feedbackModel.length,
+                  rows: List<DataRow>.generate(searchedModel.length,
                         (index) => DataRow(cells: [
                       DataCell(width > 800
-                          ? textStyle2("${feedbackModel[index].project}", TextAlign.left,
+                          ? textStyle2("${searchedModel[index].project}", TextAlign.left,
                           ColorManager.blackColor)
-                          : textStyle0_5("${feedbackModel[index].project}", TextAlign.left,
+                          : textStyle0_5("${searchedModel[index].project}", TextAlign.left,
                           ColorManager.blackColor)),
 
                       DataCell(width > 800
-                          ? Center(
-                            child: textStyle2("${feedbackModel[index].rating}", TextAlign.left,
-                            ColorManager.blackColor),
-                          )
-                          : Center(
-                            child: textStyle0_5("${feedbackModel[index].rating}", TextAlign.left,
-                            ColorManager.blackColor),
-                          )),
-
-                      DataCell(width > 800
-                          ? textStyle2("${feedbackModel[index].remarks}", TextAlign.left,
+                          ? textStyle2("${searchedModel[index].rating}", TextAlign.left,
                           ColorManager.blackColor)
-                          : textStyle0_5("${feedbackModel[index].remarks}", TextAlign.left,
+                          : textStyle0_5("${searchedModel[index].rating}", TextAlign.left,
                           ColorManager.blackColor)),
 
-
+                      DataCell(width > 800
+                          ? textStyle2("${searchedModel[index].remarks}", TextAlign.left,
+                          ColorManager.blackColor)
+                          : textStyle0_5("${searchedModel[index].remarks}", TextAlign.left,
+                          ColorManager.blackColor)),
 
                     ]),
                   ),
