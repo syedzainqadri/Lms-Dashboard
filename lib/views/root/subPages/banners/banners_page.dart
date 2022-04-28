@@ -24,6 +24,8 @@ import '../../../../utils/helpers/helper.dart';
 import '../../../../widgets/text_field.dart';
 import 'package:get/get.dart';
 
+import '../events/widgets/add_button.dart';
+
 class BannersPage extends StatefulWidget {
   const BannersPage({Key? key}) : super(key: key);
 
@@ -39,7 +41,12 @@ class _BannersPageState extends State<BannersPage> {
   final _donationUrlController = TextEditingController();
   final _eventDetailUrlController = TextEditingController();
   final _feedbackUrlController = TextEditingController();
-  bool status = false;
+  bool status1 = false;
+  bool status2 = false;
+  bool status3 = false;
+  bool status4 = false;
+  bool status5 = false;
+  bool status6 = false;
   XFile? image, photo;
   String? imageUrl1;
   String? imageUrl2;
@@ -214,11 +221,12 @@ class _BannersPageState extends State<BannersPage> {
                        ),
 
                        DataCell(
+                          index == 0 ?
                           Center(
                             child: ToggleSwitch(
                               customWidths: const [50.0, 50.0],
                               cornerRadius: 20.0,
-                              initialLabelIndex: status ? 0 : 1,
+                              initialLabelIndex: status1 ? 0 : 1,
                               activeBgColors: const [
                                 [Colors.cyan],
                                 [Colors.redAccent]
@@ -230,13 +238,139 @@ class _BannersPageState extends State<BannersPage> {
                               labels: const ['YES', 'NO'],
                               onToggle: (index) {
                                 if (index == 0) {
-                                  status = true;
+                                  status1 = true;
                                 } else {
-                                  status = false;
+                                  status1 = false;
                                 }
                               },
                             ),
                           )
+                              :
+                          index == 1 ?
+                          Center(
+                            child: ToggleSwitch(
+                              customWidths: const [50.0, 50.0],
+                              cornerRadius: 20.0,
+                              initialLabelIndex: status2 ? 0 : 1,
+                              activeBgColors: const [
+                                [Colors.cyan],
+                                [Colors.redAccent]
+                              ],
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: const ['YES', 'NO'],
+                              onToggle: (index) {
+                                if (index == 0) {
+                                  status2 = true;
+                                } else {
+                                  status2 = false;
+                                }
+                              },
+                            ),
+                          )
+                              :
+                          index == 2 ?
+                          Center(
+                            child: ToggleSwitch(
+                              customWidths: const [50.0, 50.0],
+                              cornerRadius: 20.0,
+                              initialLabelIndex: status3 ? 0 : 1,
+                              activeBgColors: const [
+                                [Colors.cyan],
+                                [Colors.redAccent]
+                              ],
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: const ['YES', 'NO'],
+                              onToggle: (index) {
+                                if (index == 0) {
+                                  status3 = true;
+                                } else {
+                                  status3 = false;
+                                }
+                              },
+                            ),
+                          )
+                              :
+                          index == 3 ?
+                          Center(
+                            child: ToggleSwitch(
+                              customWidths: const [50.0, 50.0],
+                              cornerRadius: 20.0,
+                              initialLabelIndex: status4 ? 0 : 1,
+                              activeBgColors: const [
+                                [Colors.cyan],
+                                [Colors.redAccent]
+                              ],
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: const ['YES', 'NO'],
+                              onToggle: (index) {
+                                if (index == 0) {
+                                  status4 = true;
+                                } else {
+                                  status4 = false;
+                                }
+                              },
+                            ),
+                          )
+                              :
+                          index == 4 ?
+                          Center(
+                            child: ToggleSwitch(
+                              customWidths: const [50.0, 50.0],
+                              cornerRadius: 20.0,
+                              initialLabelIndex: status5 ? 0 : 1,
+                              activeBgColors: const [
+                                [Colors.cyan],
+                                [Colors.redAccent]
+                              ],
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: const ['YES', 'NO'],
+                              onToggle: (index) {
+                                if (index == 0) {
+                                  status5 = true;
+                                } else {
+                                  status5 = false;
+                                }
+                              },
+                            ),
+                          )
+                              :
+                          index == 5 ?
+                          Center(
+                            child: ToggleSwitch(
+                              customWidths: const [50.0, 50.0],
+                              cornerRadius: 20.0,
+                              initialLabelIndex: status6 ? 0 : 1,
+                              activeBgColors: const [
+                                [Colors.cyan],
+                                [Colors.redAccent]
+                              ],
+                              activeFgColor: Colors.white,
+                              inactiveBgColor: Colors.grey,
+                              inactiveFgColor: Colors.white,
+                              totalSwitches: 2,
+                              labels: const ['YES', 'NO'],
+                              onToggle: (index) {
+                                if (index == 0) {
+                                  status6 = true;
+                                } else {
+                                  status6 = false;
+                                }
+                              },
+                            ),
+                          )
+                              :const SizedBox.shrink()
                       ),
 
                        DataCell(
@@ -244,12 +378,9 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(0),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
                                 child: loading1 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl1 != null ? Image.network(imageUrl1!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -260,12 +391,12 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(1),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
+                                // decoration: BoxDecoration(
+                                //   border: Border.all(width: 1, color: ColorManager.darkColor),
+                                // ),
                                 child: loading2 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl2 != null ? Image.network(imageUrl2!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -276,12 +407,9 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(2),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
                                 child: loading3 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl3 != null ? Image.network(imageUrl3!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -292,12 +420,9 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
                                 child: loading4 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl4 != null ? Image.network(imageUrl4!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -308,12 +433,9 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(4),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
                                 child: loading5 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl5 != null ? Image.network(imageUrl5!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -324,12 +446,9 @@ class _BannersPageState extends State<BannersPage> {
                         InkWell(
                           onTap: () => getImage(5),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                                 height: 200,
                                 width: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1, color: ColorManager.darkColor),
-                                ),
                                 child: loading6 ?  const Center(child: CircularProgressIndicator()) :
                                 imageUrl6 != null ? Image.network(imageUrl6!, height: 200, width: 250) : const Center(child: Icon(Icons.add_photo_alternate_outlined),)
                             ),
@@ -339,37 +458,42 @@ class _BannersPageState extends State<BannersPage> {
                       ),
 
                        DataCell( Center(
-                        child: IconButton(
-                          icon: const Icon(Icons.save),
-                          color: ColorManager.darkColor,
-                          iconSize: 24,
-                          onPressed: () async{
-                            if(index == 0){
-                              await AddHomeTopBanner().addHomeTopBanner(imageUrl1, _homeTopUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                            if(index == 1){
-                              await AddHomeBottomBanner().addHomeBottomBanner(imageUrl2, _homeBottomUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                            if(index == 2){
-                              await AddVolunteerBanner().addHomeTopBanner(imageUrl3, _volunteerUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                            if(index == 3){
-                              await AddDonationBanner().addHomeTopBanner(imageUrl4, _donationUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                            if(index == 4){
-                              await AddEventDetailBanner().addHomeTopBanner(imageUrl5, _eventDetailUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                            if(index == 5){
-                              await AddFeedbackBanner().addHomeTopBanner(imageUrl6, _feedbackUrlController.text, status);
-                              Get.offAllNamed('/root');
-                            }
-                          },
-                        ),
+                        child: InkWell(
+                            onTap: () async{
+                              if(index == 0){
+                                await AddHomeTopBanner().addHomeTopBanner(imageUrl1, _homeTopUrlController.text, status1);
+                                Get.offAllNamed('/root');
+                              }
+                              if(index == 1){
+                                await AddHomeBottomBanner().addHomeBottomBanner(imageUrl2, _homeBottomUrlController.text, status2);
+                                Get.offAllNamed('/root');
+                              }
+                              if(index == 2){
+                                await AddVolunteerBanner().addHomeTopBanner(imageUrl3, _volunteerUrlController.text, status3);
+                                Get.offAllNamed('/root');
+                              }
+                              if(index == 3){
+                                await AddDonationBanner().addHomeTopBanner(imageUrl4, _donationUrlController.text, status4);
+                                Get.offAllNamed('/root');
+                              }
+                              if(index == 4){
+                                await AddEventDetailBanner().addHomeTopBanner(imageUrl5, _eventDetailUrlController.text, status5);
+                                Get.offAllNamed('/root');
+                              }
+                              if(index == 5){
+                                await AddFeedbackBanner().addHomeTopBanner(imageUrl6, _feedbackUrlController.text, status6);
+                                Get.offAllNamed('/root');
+                              }
+                            },
+                            child: addButton("Add Banner", width > 800 ? false : true))
+                        // IconButton(
+                        //   icon: const Icon(Icons.save),
+                        //   color: ColorManager.darkColor,
+                        //   iconSize: 24,
+                        //   onPressed: () async{
+                        //
+                        //   },
+                        // ),
                       ),),
 
                     ]),

@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 Widget addButton(String text, isSmall) {
   return Container(
     height: 6.h,
-    width: isSmall ? 25.w : 14.w,
+    width: isSmall ? 22.w : 12.w,
     decoration: BoxDecoration(
       color: ColorManager.darkColor,
       borderRadius: const BorderRadius.all(
