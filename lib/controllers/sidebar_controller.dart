@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/utils/constants/assets_manager.dart';
 
-
 class SideBarController extends GetxController {
   final List<String> iconsList = [
     AssetImages.dashboard,
@@ -13,7 +12,7 @@ class SideBarController extends GetxController {
   ];
   final List<String> namesList = [
     // 'Dashboard',
-    "Events",
+    "Programs",
     "Banners",
     "Donations",
     "Feedbacks",

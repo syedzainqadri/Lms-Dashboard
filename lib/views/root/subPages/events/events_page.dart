@@ -21,7 +21,7 @@ class EventsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle6("Events", TextAlign.left, ColorManager.darkColor),
+                textStyle6("Programs", TextAlign.left, ColorManager.darkColor),
                 InkWell(
                     onTap: () {
                       showDialog(
@@ -32,7 +32,8 @@ class EventsPage extends StatelessWidget {
                         },
                       );
                     },
-                    child: addButton("Add Events", width > 800 ? false : true)),
+                    child:
+                        addButton("Add Program", width > 800 ? false : true)),
               ],
             ),
             const EventsTable(),
