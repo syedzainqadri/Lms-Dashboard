@@ -36,7 +36,8 @@ class _RootViewState extends State<RootView> {
       appBar: AppBar(
         backgroundColor: ColorManager.darkColor,
         elevation: 0,
-        title: Obx(() => textStyle5(titleController.title.toString() ?? "", TextAlign.center, ColorManager.whiteColor)),
+        title: Obx(() => textStyle5(titleController.title.toString() ?? "",
+            TextAlign.center, ColorManager.whiteColor)),
         // iconTheme: const IconThemeData(color: ColorManager.whiteColor),
         // automaticallyImplyLeading: true,
         leading: IconButton(
@@ -45,7 +46,7 @@ class _RootViewState extends State<RootView> {
             setState(() {
               show = !show;
             });
-            if(size > 200 && size < 500) {
+            if (size > 200 && size < 500) {
               _sideBarController.scaffoldKey.currentState?.openDrawer();
             }
           },
@@ -53,7 +54,8 @@ class _RootViewState extends State<RootView> {
         actions: [
           Row(
             children: [
-              const Icon(Icons.logout, size: 20, color: ColorManager.whiteColor),
+              const Icon(Icons.logout,
+                  size: 20, color: ColorManager.whiteColor),
               textStyle2("Logout", TextAlign.right, ColorManager.whiteColor),
               buildSpaceHorizontal(2.w),
             ],
@@ -64,12 +66,35 @@ class _RootViewState extends State<RootView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: size >= 920 ? show == true ? size * 0.15 : 0 : size > 600 ? show == true ? size * 0.1 : 0 : 0,
-            child: size >= 920 ? show == true ? DesktopSidebar(sideBarController: _sideBarController) : MobileSidebar(sideBarController: _sideBarController)
-                : size > 600 ? show == true ? TabletSidebar(sideBarController: _sideBarController) : MobileSidebar(sideBarController: _sideBarController) : null,
+            width: size >= 920
+                ? show == true
+                    ? size * 0.15
+                    : 0
+                : size > 600
+                    ? show == true
+                        ? size * 0.1
+                        : 0
+                    : 0,
+            child: size >= 920
+                ? show == true
+                    ? DesktopSidebar(sideBarController: _sideBarController)
+                    : MobileSidebar(sideBarController: _sideBarController)
+                : size > 600
+                    ? show == true
+                        ? TabletSidebar(sideBarController: _sideBarController)
+                        : MobileSidebar(sideBarController: _sideBarController)
+                    : null,
           ),
           SizedBox(
-            width: size > 920 ? show == true ? size * 0.85 : size : size > 600 ? show == true ? size * 0.9 : size : size,
+            width: size > 920
+                ? show == true
+                    ? size * 0.85
+                    : size
+                : size > 600
+                    ? show == true
+                        ? size * 0.9
+                        : size
+                    : size,
             child: PageView(
               controller: _sideBarController.pageController,
               physics: const NeverScrollableScrollPhysics(),
@@ -87,4 +112,3 @@ class _RootViewState extends State<RootView> {
     );
   }
 }
-//sideBarController.widgetList.length
