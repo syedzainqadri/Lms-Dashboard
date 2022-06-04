@@ -5,6 +5,7 @@ import 'package:lmsadminpanle/utils/constants/assets_manager.dart';
 class SideBarController extends GetxController {
   final List<String> iconsList = [
     AssetImages.dashboard,
+    AssetImages.menuStore,
     AssetImages.menuDoc,
     AssetImages.menuTask,
     AssetImages.menuTask,
@@ -12,6 +13,7 @@ class SideBarController extends GetxController {
   ];
   final List<String> namesList = [
     // 'Dashboard',
+    "Events",
     "Programs",
     "Banners",
     "Donations",

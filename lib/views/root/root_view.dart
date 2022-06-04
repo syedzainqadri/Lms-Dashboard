@@ -13,6 +13,7 @@ import 'package:lmsadminpanle/views/root/subPages/events/events_page.dart';
 import 'package:sizer/sizer.dart';
 import 'sidebar/mobile_sidebar.dart';
 import 'subPages/feedback/feedbacks_screen.dart';
+import 'subPages/programs/programs_page.dart';
 import 'subPages/volunteer/volunteers_screen.dart';
 
 class RootView extends StatefulWidget {
@@ -36,8 +37,7 @@ class _RootViewState extends State<RootView> {
       appBar: AppBar(
         backgroundColor: ColorManager.darkColor,
         elevation: 0,
-        title: Obx(() => textStyle5(titleController.title.toString() ?? "",
-            TextAlign.center, ColorManager.whiteColor)),
+        title: Obx(() => textStyle5(titleController.title.toString(), TextAlign.center, ColorManager.whiteColor)),
         // iconTheme: const IconThemeData(color: ColorManager.whiteColor),
         // automaticallyImplyLeading: true,
         leading: IconButton(
@@ -100,6 +100,7 @@ class _RootViewState extends State<RootView> {
               physics: const NeverScrollableScrollPhysics(),
               children: const [
                 EventsPage(),
+                ProgramsPage(),
                 BannersPage(),
                 DonationsPage(),
                 FeedbacksPage(),

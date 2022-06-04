@@ -1,7 +1,9 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/controllers/events/get_events_controller.dart';
+import 'package:lmsadminpanle/controllers/program/get_programs_controller.dart';
 import 'package:lmsadminpanle/models/event_model.dart';
+import 'package:lmsadminpanle/models/program_model.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
@@ -9,20 +11,20 @@ import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
-import '../addEvent/delete_event_dialog.dart';
-import '../addEvent/edit_event_dialog.dart';
-import '../addEvent/view_event_dialog.dart';
+import '../addProgram/delete_program_dialog.dart';
+import '../addProgram/edit_program_dialog.dart';
+import '../addProgram/view_program_dialog.dart';
 
-class EventsTable extends StatefulWidget {
-  const EventsTable({Key? key}) : super(key: key);
+class ProgramsTable extends StatefulWidget {
+  const ProgramsTable({Key? key}) : super(key: key);
 
   @override
-  State<EventsTable> createState() => _EventsTableState();
+  State<ProgramsTable> createState() => _ProgramsTableState();
 }
 
-class _EventsTableState extends State<EventsTable> {
-  final GetEventController _eventController = Get.put(GetEventController());
-  List<EventModel> eventModel = [];
+class _ProgramsTableState extends State<ProgramsTable> {
+  final GetProgramController _programController = Get.put(GetProgramController());
+  List<ProgramModel> programModel = [];
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _EventsTableState extends State<EventsTable> {
   }
 
   getData() async {
-    eventModel = (await _eventController.getEventsData())!;
+    programModel = (await _programController.getProgramsData())!;
     setState(() {});
   }
 
@@ -43,7 +45,7 @@ class _EventsTableState extends State<EventsTable> {
         padding: const EdgeInsets.symmetric(
             horizontal: AppPadding.p12, vertical: AppPadding.p12),
         child: Obx(() {
-          return _eventController.isLoadingEvents.isTrue
+          return _programController.isLoadingPrograms.isTrue
               ? const Center(child: CircularProgressIndicator())
               : Container(
                   decoration: BoxDecoration(
@@ -67,7 +69,7 @@ class _EventsTableState extends State<EventsTable> {
                       Row(
                         children: [
                           buildSpaceVertical(2.h),
-                          textStyle3("Event List", TextAlign.left,
+                          textStyle3("Program List", TextAlign.left,
                               ColorManager.darkColor),
                         ],
                       ),
@@ -82,12 +84,12 @@ class _EventsTableState extends State<EventsTable> {
                             label: width > 800
                                 ? Center(
                                     child: textStyle2(
-                                        "Event Name",
+                                        "Program Name",
                                         TextAlign.center,
                                         ColorManager.blackColor))
                                 : Center(
                                     child: textStyle0_5(
-                                        "Event Name",
+                                        "Program Name",
                                         TextAlign.center,
                                         ColorManager.blackColor)),
                             // size: ColumnSize.L,
@@ -126,24 +128,24 @@ class _EventsTableState extends State<EventsTable> {
                           ),
                         ],
                         rows: List<DataRow>.generate(
-                          eventModel.length,
+                          programModel.length,
                           (index) => DataRow(cells: [
                             DataCell(width > 800
-                                ? textStyle2("${eventModel[index].name}",
+                                ? textStyle2("${programModel[index].name}",
                                     TextAlign.left, ColorManager.blackColor)
-                                : textStyle0_5("${eventModel[index].name}",
+                                : textStyle0_5("${programModel[index].name}",
                                     TextAlign.left, ColorManager.blackColor)),
                             DataCell(width > 800
                                 ? Center(
                                     child: textStyle2(
-                                        eventModel[index].status!
+                                        programModel[index].status!
                                             ? "ACTIVE"
                                             : "INACTIVE",
                                         TextAlign.center,
                                         ColorManager.blackColor))
                                 : Center(
                                     child: textStyle0_5(
-                                        eventModel[index].status!
+                                        programModel[index].status!
                                             ? "ACTIVE"
                                             : "INACTIVE",
                                         TextAlign.center,
@@ -163,8 +165,8 @@ class _EventsTableState extends State<EventsTable> {
                                       barrierColor: Colors.black26,
                                       context: context,
                                       builder: (context) {
-                                        return ViewEventDialog(
-                                            id: eventModel[index].id!);
+                                        return ViewProgramDialog(
+                                            id: programModel[index].id!);
                                       },
                                     );
                                   },
@@ -179,8 +181,8 @@ class _EventsTableState extends State<EventsTable> {
                                       barrierColor: Colors.black26,
                                       context: context,
                                       builder: (context) {
-                                        return EditEventDialog(
-                                            id: eventModel[index].id!);
+                                        return EditProgramDialog(
+                                            id: programModel[index].id!);
                                       },
                                     );
                                   },
@@ -195,8 +197,8 @@ class _EventsTableState extends State<EventsTable> {
                                       barrierColor: Colors.black26,
                                       context: context,
                                       builder: (context) {
-                                        return DeleteEventDialog(
-                                            id: eventModel[index].id!);
+                                        return DeleteProgramDialog(
+                                            id: programModel[index].id!);
                                       },
                                     );
                                   },

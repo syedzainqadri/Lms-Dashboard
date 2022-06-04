@@ -2,12 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/text_helper.dart';
-import 'package:lmsadminpanle/views/root/subPages/events/widgets/event_table.dart';
-import 'addEvent/add_event_dialog.dart';
-import 'widgets/add_button.dart';
+import '../../../../controllers/title_controller.dart';
+import 'addProgram/add_program_dialog.dart';
+import 'widgets/add_program_button.dart';
+import 'widgets/program_table.dart';
+import 'package:get/get.dart';
 
-class EventsPage extends StatelessWidget {
-  const EventsPage({Key? key}) : super(key: key);
+class ProgramsPage extends StatefulWidget {
+  const ProgramsPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProgramsPage> createState() => _ProgramsPageState();
+}
+
+class _ProgramsPageState extends State<ProgramsPage> {
+
+
+  final TitleController titleController = Get.put(TitleController());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      titleController.changeName("Programs List");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +40,21 @@ class EventsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle6("Events", TextAlign.left, ColorManager.darkColor),
+                textStyle6("Programs", TextAlign.left, ColorManager.darkColor),
                 InkWell(
                     onTap: () {
                       showDialog(
                         barrierColor: Colors.black26,
                         context: context,
                         builder: (context) {
-                          return const AddEventDialog();
+                          return const AddProgramDialog();
                         },
                       );
                     },
-                    child:
-                        addButton("Add Event", width > 800 ? false : true)),
+                    child: addProgramButton("Add Program", width > 800 ? false : true)),
               ],
             ),
-            const EventsTable(),
+            const ProgramsTable(),
           ],
         ),
       ),

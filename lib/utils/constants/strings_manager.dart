@@ -68,13 +68,18 @@ class StringsManager {
 
   // add new category
   static const String event = "ENTER EVENT NAME";
+  static const String programN = "ENTER PROGRAM NAME";
   static const String eventUrl = "ENTER EVENT URL";
+  static const String programU = "ENTER PROGRAM URL";
+  static const String btnName = "ENTER BUTTON NAME";
+  static const String btnUrl = "ENTER BUTTON URL";
   static const String eventDesc = "ENTER DESCRIPTION";
   static const String evntStatus = "EVENT Status";
   static const String eventStatusA = "ACTIVE";
   static const String eventStatusI = "IN-ACTIVE";
   static const String chooseFile = "Choose File";
   static const String status = "STATUS";
+  static const String isFeatured = "Is Featured";
   static const String tarana = "TARANA";
   static const String poster = "POSTER";
   static const String sponsors = "SPONSOR";
