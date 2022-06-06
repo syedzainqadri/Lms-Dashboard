@@ -149,7 +149,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        textStyle3(StringsManager.tarana, TextAlign.center, ColorManager.darkColor),
+                        textStyle3(StringsManager.isFeatured, TextAlign.center, ColorManager.darkColor),
                         ToggleSwitch(
                           customWidths: const [50.0, 50.0],
                           cornerRadius: 20.0,
