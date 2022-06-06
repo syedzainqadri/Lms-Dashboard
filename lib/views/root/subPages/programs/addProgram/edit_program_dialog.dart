@@ -174,7 +174,9 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                   buildSpaceVertical(2.h),
                   Column(
                     children: [
-                      Image.network(url, height: 200, width: 250),
+                      url.isNotEmpty ? Image.network(url, height: 200, width: 250) :
+                      imageUrl != null ? Image.network(imageUrl!, height: 200, width: 250) :
+                       Image.asset("assets/placeholder.png", height: 200, width: 250),
                       buildSpaceVertical(3.h),
                       InkWell(
                         onTap: () => getImage(),

@@ -173,7 +173,8 @@ class _ViewProgramDialogState extends State<ViewProgramDialog> {
                   ),
 
                   buildSpaceVertical(2.h),
-                  Center(child: Image.network(image!, height: 200, width: 250)),
+                  image!.isNotEmpty ? Center(child: Image.network(image!, height: 200, width: 250)) :
+                  Center(child: Image.asset("assets/placeholder.png", height: 200, width: 250)),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
                   //   child: Row(

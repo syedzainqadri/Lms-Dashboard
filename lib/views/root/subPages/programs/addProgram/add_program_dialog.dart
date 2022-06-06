@@ -261,7 +261,7 @@ class _AddProgramDialogState extends State<AddProgramDialog> {
                     children: [
                       imageUrl != null ?
                       Image.network(imageUrl!, height: 200, width: 250)
-                          : Image.asset("assets/logo.jpeg", height: 200, width: 250),
+                          : Image.asset("assets/placeholder.png", height: 200, width: 250),
                       buildSpaceVertical(3.h),
                       Center(
                         child: InkWell(
