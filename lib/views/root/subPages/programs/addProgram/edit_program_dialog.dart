@@ -43,6 +43,8 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
   final ImagePicker _picker = ImagePicker();
   List programButtonModel = [];
   List<ProgramButtonModel> buttonModel = [];
+  final _buttonNameController = TextEditingController();
+  final _buttonUrlController = TextEditingController();
 
 
   @override
@@ -81,7 +83,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
       ),
       child: SizedBox(
         height: size.height * 0.80,
-        width: size.width * 0.7,
+        width: size.width * 0.75,
         child: Obx(() {
           return _programController.isLoading.isTrue ? const Center(child: CircularProgressIndicator()) :
           SingleChildScrollView(
@@ -194,6 +196,58 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                   ),
                   buildSpaceVertical(2.h),
                   Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.07,
+                          width: size.width * 0.3,
+                          child: CustomTextField(
+                            controller: _buttonNameController,
+                            hintName: StringsManager.btnName,
+                            isLarge: false,
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: size.height * 0.07,
+                          width: size.width * 0.3,
+                          child: CustomTextField(
+                            controller: _buttonUrlController,
+                            hintName: StringsManager.btnUrl,
+                            isLarge: false,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            if(_buttonNameController.text.isNotEmpty){
+                              if(_buttonUrlController.text.isNotEmpty){
+                                // programButtonModel.add(ProgramButtonModel(buttonName: _buttonNameController.text, buttonUrl: _buttonUrlController.text));
+                                buttonModel.add(ProgramButtonModel(buttonName: _buttonNameController.text, buttonUrl: _buttonUrlController.text));
+                                _buttonNameController.text = "";
+                                _buttonUrlController.text = "";
+                                setState(() {  });
+                              }
+                            }
+                          },
+                          child: Container(
+                            height: size.height * 0.05,
+                            width: size.width * 0.1,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: ColorManager.darkColor,
+                            ),
+                            child: Center(
+                                child: textStyle2("Add Button", TextAlign.center,
+                                    ColorManager.whiteColor)),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  buildSpaceVertical(2.h),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
                     child: DataTable2(
                       columnSpacing: 12,
@@ -224,18 +278,20 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                         ),
                       ],
                       rows: List<DataRow>.generate(
-                        programButtonModel.length,
+                        buttonModel.length,
                             (index) => DataRow(cells: [
-                          DataCell(textStyle0_5("${programButtonModel[index]['buttonName']}", TextAlign.left, ColorManager.blackColor)),
-                          DataCell( textStyle0_5(programButtonModel[index]['buttonUrl']!, TextAlign.center, ColorManager.blackColor)),
-                          DataCell(IconButton(
-                            icon: const Icon(Icons.delete),
-                            color: ColorManager.redColor,
-                            iconSize: 24,
-                            onPressed: () {
-                              programButtonModel.removeAt(index);
-                              setState(() {  });
-                            },
+                          DataCell(textStyle0_5("${buttonModel[index].buttonName}", TextAlign.left, ColorManager.blackColor)),
+                          DataCell( textStyle0_5(buttonModel[index].buttonUrl!, TextAlign.center, ColorManager.blackColor)),
+                          DataCell(Center(
+                            child: IconButton(
+                              icon: const Icon(Icons.delete),
+                              color: ColorManager.redColor,
+                              iconSize: 24,
+                              onPressed: () {
+                                buttonModel.removeAt(index);
+                                setState(() {  });
+                              },
+                            ),
                           )),
                         ]),
                       ),
@@ -256,11 +312,20 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            _updateProgramController.updateProgram(
-                                widget.id,
-                                _programNameController.text, imageUrl,
-                                _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel);
-                            Get.offAllNamed('/root');
+                            if(url.isNotEmpty){
+                              _updateProgramController.updateProgram(
+                                  widget.id,
+                                  _programNameController.text, url,
+                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel);
+                              Get.offAllNamed('/root');
+                            }else{
+                              _updateProgramController.updateProgram(
+                                  widget.id,
+                                  _programNameController.text, imageUrl,
+                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel);
+                              Get.offAllNamed('/root');
+                            }
+
                           },
                           child: Container(
                             height: 5.h,

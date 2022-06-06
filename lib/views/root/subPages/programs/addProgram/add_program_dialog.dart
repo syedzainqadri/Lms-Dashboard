@@ -172,14 +172,16 @@ class _AddProgramDialogState extends State<AddProgramDialog> {
                             (index) => DataRow(cells: [
                           DataCell(textStyle0_5("${programButtonModel[index].buttonName}", TextAlign.left, ColorManager.blackColor)),
                           DataCell( textStyle0_5(programButtonModel[index].buttonUrl!, TextAlign.center, ColorManager.blackColor)),
-                          DataCell(IconButton(
-                            icon: const Icon(Icons.delete),
-                            color: ColorManager.redColor,
-                            iconSize: 24,
-                            onPressed: () {
-                              programButtonModel.removeAt(index);
-                              setState(() {  });
-                            },
+                          DataCell(Center(
+                            child: IconButton(
+                              icon: const Icon(Icons.delete),
+                              color: ColorManager.redColor,
+                              iconSize: 24,
+                              onPressed: () {
+                                programButtonModel.removeAt(index);
+                                setState(() {  });
+                              },
+                            ),
                           )
                           ),
                         ]),
