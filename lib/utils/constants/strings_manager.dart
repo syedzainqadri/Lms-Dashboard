@@ -74,6 +74,8 @@ class StringsManager {
   static const String btnName = "ENTER BUTTON NAME";
   static const String btnUrl = "ENTER BUTTON URL";
   static const String eventDesc = "ENTER DESCRIPTION";
+  static const String date = "Enter Date of Program";
+  static const String eDate = "Enter Date of Event";
   static const String evntStatus = "EVENT Status";
   static const String eventStatusA = "ACTIVE";
   static const String eventStatusI = "IN-ACTIVE";

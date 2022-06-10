@@ -1,11 +1,8 @@
-import 'dart:typed_data';
 
+import 'dart:typed_data';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmsadminpanle/controllers/events/get_events_controller.dart';
 import 'package:lmsadminpanle/controllers/program/get_programs_controller.dart';
-import 'package:lmsadminpanle/models/event_model.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -15,8 +12,6 @@ import 'package:lmsadminpanle/widgets/text_field.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-
-import '../../../../../models/program_button_model.dart';
 import '../../../../../models/program_model.dart';
 
 class ViewProgramDialog extends StatefulWidget {
@@ -31,6 +26,7 @@ class _ViewProgramDialogState extends State<ViewProgramDialog> {
   final _programNameController = TextEditingController();
   final _programUrlController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _dateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
   bool status = false;
@@ -55,6 +51,7 @@ class _ViewProgramDialogState extends State<ViewProgramDialog> {
       _programNameController.text = programModel!.name!;
       _programUrlController.text = programModel!.programUrl!;
       _descriptionController.text = programModel!.description!;
+      _dateController.text = programModel!.programDate!;
       status = programModel!.status!;
       isFeatured = programModel!.isFeatured!;
       image = programModel!.url!;
@@ -103,6 +100,12 @@ class _ViewProgramDialogState extends State<ViewProgramDialog> {
                     controller: _descriptionController,
                     hintName: StringsManager.eventDesc,
                     inputLines: 4,
+                    isLarge: size.width > 800 ? true : false,
+                  ),
+                  buildSpaceVertical(2.h),
+                  CustomTextField(
+                    controller: _dateController,
+                    hintName: StringsManager.date,
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),

@@ -46,6 +46,9 @@ class _AddEventDialogState extends State<AddEventDialog> {
   File? file;
   bool loading = false;
   final ImagePicker _picker = ImagePicker();
+  late DateTime selectedDate;
+  DateTime todayDate = DateTime.now();
+  final _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +92,54 @@ class _AddEventDialogState extends State<AddEventDialog> {
                     isLarge: size.width > 800 ? true : false,
                   ),
                   buildSpaceVertical(2.h),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSize.s20),
+                    child: TextFormField(
+                      controller: _dateController,
+                      readOnly: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter value';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.primaryColor),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.blackColor),
+                        ),
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        disabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.whiteColor),
+                        ),
+                        hintText: StringsManager.eDate,
+                        hintStyle: const TextStyle(fontSize: AppSize.s10),
+                        fillColor: ColorManager.whiteColor,
+                        filled: true,
+                        suffixIcon: InkWell(
+                          onTap: () => _selectDate(context),
+                          child: const Icon(
+                            Icons.calendar_today,
+                            color: ColorManager.primaryColor,
+                          ),
+                        ),
+                        errorStyle: const TextStyle(color: ColorManager.redColor),
+                      ),
+                      keyboardType: TextInputType.datetime,
+                    ),
+                  ),
 
                   // Row(
                   //   children: [
@@ -633,7 +684,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                           children: [
                             imageUrl != null ?
                             Image.network(imageUrl!, height: 200, width: 250)
-                            : Image.asset("assets/logo.jpeg", height: 200, width: 250),
+                            : Image.asset("assets/placeholder.png", height: 200, width: 250),
                             buildSpaceVertical(3.h),
                             InkWell(
                               onTap: () => getImage(),
@@ -692,7 +743,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                                 registration,
                                 videos,
                                 bookLaunches,
-                                status);
+                                status, _dateController.text);
                             Get.offAllNamed('/root');
                           },
                           child: Container(
@@ -759,4 +810,19 @@ class _AddEventDialogState extends State<AddEventDialog> {
     print(imageUrl);
     setState(() { loading = false; });
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: todayDate,
+        firstDate: DateTime(1950, 1),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != todayDate) {
+      setState(() {
+        _dateController.text = picked.toString().substring(0, 10);
+        selectedDate = picked;
+      });
+    }
+  }
+
 }

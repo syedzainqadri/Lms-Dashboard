@@ -9,7 +9,7 @@ class AddEvent {
     String? name, String? url, String eventUrl, String? description, bool? tarana, bool? poster,
     bool? sponsors, bool? program, bool? resource_Persons,
     bool? gallery, bool? media, bool? getInvolved, bool? testimonials,
-    bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status
+    bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status, String date
   ) async {
     DocumentReference ref = FirebaseFirestore.instance.collection("event").doc();
     await fire.collection('event').doc(ref.id).set({
@@ -32,6 +32,7 @@ class AddEvent {
       'video': videos,
       'book_launches': book_launches,
       'status': status,
+      'eventDate': date,
     });
   }
 }

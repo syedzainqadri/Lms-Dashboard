@@ -10,6 +10,7 @@ class SideBarController extends GetxController {
     AssetImages.menuTask,
     AssetImages.menuTask,
     AssetImages.menuTask,
+    AssetImages.menuProfile,
   ];
   final List<String> namesList = [
     // 'Dashboard',
@@ -19,7 +20,7 @@ class SideBarController extends GetxController {
     "Donations",
     "Feedbacks",
     "Volunteers",
-    // "FeedBacks",
+    "Users",
     // "Donations",
   ];
 

@@ -44,7 +44,9 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
   final GetEventController _eventController = Get.put(GetEventController());
   EventModel? eventModel;
   final _descriptionController = TextEditingController();
+  final _dateController = TextEditingController();
   Uint8List? bytes;
+  String? image;
 
 
   @override
@@ -58,9 +60,11 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
     eventModel = await _eventController.getEventData(widget.id);
     setState(() {
       _eventNameController.text = eventModel!.name!;
-      _urlController.text = eventModel!.url!;
+      _urlController.text = eventModel!.eventUrl!;
       _descriptionController.text = eventModel!.description!;
+      _dateController.text = eventModel!.eventDate!;
       status = eventModel!.status!;
+      image = eventModel!.url!;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
       sponsors = eventModel!.sponsors!;
@@ -125,6 +129,13 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
                     inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
                   ),
+                  buildSpaceVertical(2.h),
+                  CustomTextField(
+                    controller: _dateController,
+                    hintName: StringsManager.eDate,
+                    isLarge: size.width > 800 ? true : false,
+                  ),
+
                   buildSpaceVertical(2.h),
                   //
 
@@ -532,7 +543,8 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
                             ],
                           ),
                         ),
-                        Center(child: Image.network(_urlController.text, height: 200, width: 250)),
+                        image != null ? Center(child: Image.network(image!, height: 200, width: 250)) :
+                        Center(child: Image.asset("assets/placeholder.png", height: 200, width: 250)),
                       ],
                     ),
                   ),

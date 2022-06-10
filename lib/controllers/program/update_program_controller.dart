@@ -13,7 +13,7 @@ class UpdateProgramController extends GetxController {
 
   FirebaseFirestore fire = FirebaseFirestore.instance;
 
-  void updateProgram(String id, String? name, String? url, String programUrl, String? description,  bool? status, bool? isFeatured, List<ProgramButtonModel> buttonList) async {
+  void updateProgram(String id, String? name, String? url, String programUrl, String? description,  bool? status, bool? isFeatured, List<ProgramButtonModel> buttonList, String date) async {
 
     try {
       isUpdatingProgram.value = true;
@@ -24,6 +24,7 @@ class UpdateProgramController extends GetxController {
         'programUrl': programUrl,
         'description': description,
         'status': status,
+        'programDate': date,
         'isFeatured': isFeatured,
         'buttonList': buttonList.map((e) => e.toMap()).toList()
       });

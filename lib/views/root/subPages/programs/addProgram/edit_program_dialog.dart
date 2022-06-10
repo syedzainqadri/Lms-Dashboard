@@ -45,6 +45,10 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
   List<ProgramButtonModel> buttonModel = [];
   final _buttonNameController = TextEditingController();
   final _buttonUrlController = TextEditingController();
+  late DateTime selectedDate;
+  DateTime todayDate = DateTime.now();
+  final _dateController = TextEditingController();
+  bool loading = false;
 
 
   @override
@@ -60,6 +64,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
       _programNameController.text = programModel!.name!;
       _programUrlController.text = programModel!.programUrl!;
       _descriptionController.text = programModel!.description!;
+      _dateController.text = programModel!.programDate!;
       url = programModel!.url!;
       status = programModel!.status!;
       isFeatured = programModel!.isFeatured!;
@@ -114,6 +119,55 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                     hintName: StringsManager.eventDesc,
                     inputLines: 4,
                     isLarge: size.width > 800 ? true : false,
+                  ),
+                  buildSpaceVertical(2.h),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSize.s20),
+                    child: TextFormField(
+                      controller: _dateController,
+                      readOnly: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter value';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.primaryColor),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.blackColor),
+                        ),
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.redColor),
+                        ),
+                        disabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                          borderSide: BorderSide(color: ColorManager.whiteColor),
+                        ),
+                        hintText: StringsManager.date,
+                        hintStyle: const TextStyle(fontSize: AppSize.s10),
+                        fillColor: ColorManager.whiteColor,
+                        filled: true,
+                        suffixIcon: InkWell(
+                          onTap: () => _selectDate(context),
+                          child: const Icon(
+                            Icons.calendar_today,
+                            color: ColorManager.primaryColor,
+                          ),
+                        ),
+                        errorStyle: const TextStyle(color: ColorManager.redColor),
+                      ),
+                      keyboardType: TextInputType.datetime,
+                    ),
                   ),
                   buildSpaceVertical(2.h),
                   Padding(
@@ -188,7 +242,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                               borderRadius: BorderRadius.circular(AppSize.s10),
                               color: ColorManager.darkColor,
                             ),
-                            child: Center(
+                            child: loading ?  const Center(child: CircularProgressIndicator()) : Center(
                                 child: textStyle2("Update Image", TextAlign.center,
                                     ColorManager.whiteColor)),
                           ),
@@ -318,13 +372,13 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                               _updateProgramController.updateProgram(
                                   widget.id,
                                   _programNameController.text, url,
-                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel);
+                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel, _dateController.text);
                               Get.offAllNamed('/root');
                             }else{
                               _updateProgramController.updateProgram(
                                   widget.id,
                                   _programNameController.text, imageUrl,
-                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel);
+                                  _programUrlController.text,  _descriptionController.text,status, isFeatured, buttonModel, _dateController.text);
                               Get.offAllNamed('/root');
                             }
 
@@ -390,12 +444,27 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
   }
 
   uploadImageToStorage(PickedFile? pickedFile) async {
+    setState(() { loading = true; });
     DateTime dateTime = DateTime.now();
     Reference reference = FirebaseStorage.instance.ref().child("eventImage/$dateTime");
     await reference.putData(await pickedFile!.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
     imageUrl = await reference.getDownloadURL();
     print(imageUrl);
-    setState(() {});
+    setState(() { loading = false; });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: todayDate,
+        firstDate: DateTime(1950, 1),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != todayDate) {
+      setState(() {
+        _dateController.text = picked.toString().substring(0, 10);
+        selectedDate = picked;
+      });
+    }
   }
 
 }

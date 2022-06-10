@@ -8,7 +8,7 @@ class AddProgramController {
   String id = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> addProgram(String? name, String? url, String programUrl, String? description,
-      bool? status, bool? isFeatured, List<ProgramButtonModel> buttonList) async {
+      bool? status, bool? isFeatured, List<ProgramButtonModel> buttonList, String date) async {
     DocumentReference ref = FirebaseFirestore.instance.collection("program").doc();
     await fire.collection('program').doc(ref.id).set({
       'id': ref.id.toString(),
@@ -18,6 +18,7 @@ class AddProgramController {
       'description': description,
       'status': status,
       'isFeatured': isFeatured,
+      'programDate': date,
       'buttonList': buttonList.map((e) => e.toMap()).toList()
     });
   }

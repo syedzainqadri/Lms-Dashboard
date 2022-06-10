@@ -10,6 +10,7 @@ import 'package:lmsadminpanle/views/root/sidebar/tablet_desktop.dart';
 import 'package:lmsadminpanle/views/root/subPages/banners/banners_page.dart';
 import 'package:lmsadminpanle/views/root/subPages/donations/donations_screen.dart';
 import 'package:lmsadminpanle/views/root/subPages/events/events_page.dart';
+import 'package:lmsadminpanle/views/root/subPages/users/users_page.dart';
 import 'package:sizer/sizer.dart';
 import 'sidebar/mobile_sidebar.dart';
 import 'subPages/feedback/feedbacks_screen.dart';
@@ -105,6 +106,7 @@ class _RootViewState extends State<RootView> {
                 DonationsPage(),
                 FeedbacksPage(),
                 VolunteersPage(),
+                UsersPage(),
               ],
             ),
           ),
