@@ -639,7 +639,7 @@ class _EditEventDialogState extends State<EditEventDialog> {
                                 _eventUrlController.text, imageUrl, _descriptionController.text, tarana,
                                 poster, sponsors, program, resourcePersons,
                                 gallery, media, getInvolved, testimonials,
-                                venue, registration, videos, bookLaunches, status);
+                                venue, registration, videos, bookLaunches, status, _dateController.text);
                             Get.offAllNamed('/root');
                           },
                           child: Container(

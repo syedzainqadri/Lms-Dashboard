@@ -15,7 +15,7 @@ class UpdateEventController extends GetxController {
   void updateEvent(String id, String? name, String? eventUrl, String? url, String? description, bool? tarana, bool? poster,
       bool? sponsors, bool? program, bool? resource_Persons,
       bool? gallery, bool? media, bool? getInvolved, bool? testimonials,
-      bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status) async {
+      bool? venue, bool? registration, bool? videos, bool? book_launches, bool? status, String date) async {
 
     try {
       isUpdatingEvent.value = true;
@@ -40,6 +40,7 @@ class UpdateEventController extends GetxController {
         'video': videos,
         'book_launches': book_launches,
         'status': status,
+        'eventDate': date,
       });
       isUpdatingEvent.value = false;
       successToast(StringsManager.success, StringsManager.successMsj);
