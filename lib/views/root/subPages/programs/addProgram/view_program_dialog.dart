@@ -54,7 +54,7 @@ class _ViewProgramDialogState extends State<ViewProgramDialog> {
       _dateController.text = programModel!.programDate!;
       status = programModel!.status!;
       isFeatured = programModel!.isFeatured!;
-      image = programModel!.url!;
+      image = programModel!.url != null ? programModel!.url : null;
       programButtonModel = programModel!.buttonList!;
     });
   }

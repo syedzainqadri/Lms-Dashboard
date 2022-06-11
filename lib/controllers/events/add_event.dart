@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AddEvent {
   FirebaseFirestore fire = FirebaseFirestore.instance;
-  String id = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> addEvent(
     String? name, String? url, String eventUrl, String? description, bool? tarana, bool? poster,

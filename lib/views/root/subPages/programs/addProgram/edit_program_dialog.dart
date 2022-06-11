@@ -31,7 +31,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
   final _programUrlController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String url = '';
+  String? url;
   bool status = false;
   bool isFeatured = false;
   final GetProgramController _programController = Get.put(GetProgramController());
@@ -65,7 +65,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
       _programUrlController.text = programModel!.programUrl!;
       _descriptionController.text = programModel!.description!;
       _dateController.text = programModel!.programDate!;
-      url = programModel!.url!;
+      url = programModel!.url != null ? programModel!.url : null;
       status = programModel!.status!;
       isFeatured = programModel!.isFeatured!;
       programButtonModel = programModel!.buttonList!;
@@ -228,7 +228,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                   buildSpaceVertical(2.h),
                   Column(
                     children: [
-                      url.isNotEmpty ? Image.network(url, height: 200, width: 250) :
+                      url != null ? Image.network(url!, height: 200, width: 250) :
                       imageUrl != null ? Image.network(imageUrl!, height: 200, width: 250) :
                        Image.asset("assets/placeholder.png", height: 200, width: 250),
                       buildSpaceVertical(3.h),
@@ -368,7 +368,7 @@ class _EditProgramDialogState extends State<EditProgramDialog> {
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            if(url.isNotEmpty){
+                            if(url != null){
                               _updateProgramController.updateProgram(
                                   widget.id,
                                   _programNameController.text, url,

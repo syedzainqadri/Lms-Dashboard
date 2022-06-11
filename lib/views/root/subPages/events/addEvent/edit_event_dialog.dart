@@ -31,7 +31,7 @@ class _EditEventDialogState extends State<EditEventDialog> {
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var selectedCatStatus = 0;
-  String url = '';
+  String? url;
   bool status = false;
   bool tarana = false;
   bool poster = false;
@@ -73,7 +73,7 @@ class _EditEventDialogState extends State<EditEventDialog> {
       _eventUrlController.text = eventModel!.eventUrl!;
       _descriptionController.text = eventModel!.description!;
       _dateController.text = eventModel!.eventDate!;
-      url = eventModel!.url!;
+      url = eventModel!.url != null ? eventModel!.url : null;
       status = eventModel!.status!;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
@@ -591,7 +591,7 @@ class _EditEventDialogState extends State<EditEventDialog> {
                         ),
                         Column(
                           children: [
-                            url.isNotEmpty ? Image.network(url, height: 200, width: 250) :
+                            url != null ? Image.network(url!, height: 200, width: 250) :
                             imageUrl != null ? Image.network(imageUrl!, height: 200, width: 250) :
                             Image.asset("assets/placeholder.png", height: 200, width: 250),
                             buildSpaceVertical(3.h),

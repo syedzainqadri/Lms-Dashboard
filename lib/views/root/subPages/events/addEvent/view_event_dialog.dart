@@ -64,7 +64,7 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
       _descriptionController.text = eventModel!.description!;
       _dateController.text = eventModel!.eventDate!;
       status = eventModel!.status!;
-      image = eventModel!.url!;
+      image = eventModel!.url != null ? eventModel!.url : null ;
       tarana = eventModel!.tarana!;
       poster = eventModel!.poster!;
       sponsors = eventModel!.sponsors!;
@@ -158,7 +158,7 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
                                     ToggleSwitch(
                                       customWidths: const [50.0, 50.0],
                                       cornerRadius: 20.0,
-                                      initialLabelIndex: status ? 0 : 1,
+                                      initialLabelIndex: status == true ? 0 : 1,
                                       activeBgColors: const [[Colors.cyan], [Colors.redAccent]],
                                       activeFgColor: Colors.white,
                                       inactiveBgColor: Colors.grey,
@@ -186,7 +186,7 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
                                     ToggleSwitch(
                                       customWidths: const [50.0, 50.0],
                                       cornerRadius: 20.0,
-                                      initialLabelIndex: tarana ? 0 : 1,
+                                      initialLabelIndex: tarana == true ? 0 : 1,
                                       activeBgColors: const [[Colors.cyan], [Colors.redAccent]],
                                       activeFgColor: Colors.white,
                                       inactiveBgColor: Colors.grey,
@@ -214,7 +214,7 @@ class _ViewEventDialogState extends State<ViewEventDialog> {
                                     ToggleSwitch(
                                       customWidths: const [50.0, 50.0],
                                       cornerRadius: 20.0,
-                                      initialLabelIndex: poster ? 0 : 1,
+                                      initialLabelIndex: poster == true ? 0 : 1,
                                       activeBgColors: const [[Colors.cyan], [Colors.redAccent]],
                                       activeFgColor: Colors.white,
                                       inactiveBgColor: Colors.grey,
