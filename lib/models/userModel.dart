@@ -8,12 +8,17 @@ class UserModel {
   String? city;
   String? type;
   String? project;
+  String? event;
 
-  UserModel({
-    this.id,
-    this.name,
-    this.email, this.phone, this.city, this.type, this.project
-  });
+  UserModel(
+      {this.id,
+      this.name,
+      this.email,
+      this.phone,
+      this.city,
+      this.type,
+      this.project,
+      this.event});
 
   UserModel.fromFirestore(Map<String, dynamic> doc) {
     id = doc['id'];
@@ -23,5 +28,6 @@ class UserModel {
     city = doc['city'];
     type = doc['type'];
     project = doc['project'];
+    event = doc['event'];
   }
 }
