@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AddVolunteerBanner {
   FirebaseFirestore fire = FirebaseFirestore.instance;
-  String id = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> addVolunteerBanner(
       String? url, String eventUrl, bool? status) async {
-    DocumentReference ref =
-        FirebaseFirestore.instance.collection("volunteerBanner").doc();
-    await fire.collection('volunteerBanner').doc(ref.id).set({
-      'id': ref.id.toString(),
+    await fire
+        .collection('volunteerBanner')
+        .doc('vUIPVAyAighFb1vw5QSS')
+        .update({
       'url': url,
       'eventUrl': eventUrl,
       'status': status,

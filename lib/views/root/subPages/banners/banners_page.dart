@@ -547,51 +547,94 @@ class _BannersPageState extends State<BannersPage> {
                               child: InkWell(
                                   onTap: () async {
                                     if (index == 0) {
-                                      await AddHomeTopBanner().addHomeTopBanner(
-                                          imageUrl1,
-                                          _homeTopUrlController.text,
-                                          status1);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl1 != null &&
+                                          _homeTopUrlController
+                                              .text.isNotEmpty) {
+                                        await AddHomeTopBanner()
+                                            .addHomeTopBanner(
+                                                imageUrl1,
+                                                _homeTopUrlController.text,
+                                                status1);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                     if (index == 1) {
-                                      await AddHomeBottomBanner()
-                                          .addHomeBottomBanner(
-                                              imageUrl2,
-                                              _homeBottomUrlController.text,
-                                              status2);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl2 != null &&
+                                          _homeBottomUrlController
+                                              .text.isNotEmpty) {
+                                        await AddHomeBottomBanner()
+                                            .addHomeBottomBanner(
+                                                imageUrl2,
+                                                _homeBottomUrlController.text,
+                                                status2);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                     if (index == 2) {
-                                      await AddVolunteerBanner()
-                                          .addVolunteerBanner(
-                                              imageUrl3,
-                                              _volunteerUrlController.text,
-                                              status3);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl3 != null &&
+                                          _volunteerUrlController
+                                              .text.isNotEmpty) {
+                                        await AddVolunteerBanner()
+                                            .addVolunteerBanner(
+                                                imageUrl3,
+                                                _volunteerUrlController.text,
+                                                status3);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                     if (index == 3) {
-                                      await AddDonationBanner()
-                                          .addDonationBanner(
-                                              imageUrl4,
-                                              _donationUrlController.text,
-                                              status4);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl4 != null &&
+                                          _donationUrlController
+                                              .text.isNotEmpty) {
+                                        await AddDonationBanner()
+                                            .addDonationBanner(
+                                                imageUrl4,
+                                                _donationUrlController.text,
+                                                status4);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                     if (index == 4) {
-                                      await AddEventDetailBanner()
-                                          .addEventDetailsBanner(
-                                              imageUrl5,
-                                              _eventDetailUrlController.text,
-                                              status5);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl5 != null &&
+                                          _eventDetailUrlController
+                                              .text.isNotEmpty) {
+                                        await AddEventDetailBanner()
+                                            .addEventDetailsBanner(
+                                                imageUrl5,
+                                                _eventDetailUrlController.text,
+                                                status5);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                     if (index == 5) {
-                                      await AddFeedbackBanner()
-                                          .addFeedBackBanner(
-                                              imageUrl6,
-                                              _feedbackUrlController.text,
-                                              status6);
-                                      Get.offAllNamed('/root');
+                                      if (imageUrl6 != null &&
+                                          _feedbackUrlController
+                                              .text.isNotEmpty) {
+                                        await AddFeedbackBanner()
+                                            .addFeedBackBanner(
+                                                imageUrl6,
+                                                _feedbackUrlController.text,
+                                                status6);
+                                        Get.offAllNamed('/root');
+                                      } else {
+                                        Get.snackbar(
+                                            'Error', 'Please fill all fields');
+                                      }
                                     }
                                   },
                                   child: addButton(
