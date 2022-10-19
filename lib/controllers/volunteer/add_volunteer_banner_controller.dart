@@ -5,8 +5,10 @@ class AddVolunteerBanner {
   FirebaseFirestore fire = FirebaseFirestore.instance;
   String id = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<void> addHomeTopBanner(String? url, String eventUrl, bool? status) async {
-    DocumentReference ref = FirebaseFirestore.instance.collection("volunteerBanner").doc();
+  Future<void> addVolunteerBanner(
+      String? url, String eventUrl, bool? status) async {
+    DocumentReference ref =
+        FirebaseFirestore.instance.collection("volunteerBanner").doc();
     await fire.collection('volunteerBanner').doc(ref.id).set({
       'id': ref.id.toString(),
       'url': url,

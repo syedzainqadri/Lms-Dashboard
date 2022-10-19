@@ -1,19 +1,16 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/helpers/helper.dart';
 
 class UpdateHomeTopBannerController extends GetxController {
-
   var isUpdatingEvent = false.obs;
   bool get loadingStatus => isUpdatingEvent.value;
 
   FirebaseFirestore fire = FirebaseFirestore.instance;
 
-  void updateHomeTopBanner(String id, String? eventUrl, String? url, bool? status) async {
-
+  void updateHomeTopBanner(
+      String id, String? eventUrl, String? url, bool? status) async {
     try {
       isUpdatingEvent.value = true;
       await fire.collection('homeTopBanner').doc(id).update({

@@ -16,14 +16,12 @@ class ProgramsPage extends StatefulWidget {
 }
 
 class _ProgramsPageState extends State<ProgramsPage> {
-
-
   final TitleController titleController = Get.put(TitleController());
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       titleController.changeName("Programs List");
     });
   }
@@ -51,7 +49,8 @@ class _ProgramsPageState extends State<ProgramsPage> {
                         },
                       );
                     },
-                    child: addProgramButton("Add Program", width > 800 ? false : true)),
+                    child: addProgramButton(
+                        "Add Program", width > 800 ? false : true)),
               ],
             ),
             const ProgramsTable(),

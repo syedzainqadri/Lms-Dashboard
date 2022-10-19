@@ -5,8 +5,10 @@ class AddFeedbackBanner {
   FirebaseFirestore fire = FirebaseFirestore.instance;
   String id = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<void> addHomeTopBanner(String? url, String eventUrl, bool? status) async {
-    DocumentReference ref = FirebaseFirestore.instance.collection("feedbackBanner").doc();
+  Future<void> addFeedBackBanner(
+      String? url, String eventUrl, bool? status) async {
+    DocumentReference ref =
+        FirebaseFirestore.instance.collection("feedbackBanner").doc();
     await fire.collection('feedbackBanner').doc(ref.id).set({
       'id': ref.id.toString(),
       'url': url,

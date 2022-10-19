@@ -1,12 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lmsadminpanle/controllers/eventDetail/add_eventDetail_banner_controller.dart';
-import 'package:lmsadminpanle/controllers/events/add_event.dart';
-import 'package:lmsadminpanle/controllers/feedback/add_feedback_banner_controller.dart';
-import 'package:lmsadminpanle/controllers/volunteer/add_volunteer_banner_controller.dart';
 import 'package:lmsadminpanle/utils/constants/color_manager.dart';
 import 'package:lmsadminpanle/utils/constants/strings_manager.dart';
 import 'package:lmsadminpanle/utils/constants/values_manager.dart';
@@ -17,17 +13,16 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../../../../controllers/homeTopBanner/add_home_topbanner.dart';
-
 class AddEventDetailBannerDialog extends StatefulWidget {
   const AddEventDetailBannerDialog({Key? key}) : super(key: key);
 
   @override
-  _AddEventDetailBannerDialogState createState() => _AddEventDetailBannerDialogState();
+  _AddEventDetailBannerDialogState createState() =>
+      _AddEventDetailBannerDialogState();
 }
 
-class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog> {
-
+class _AddEventDetailBannerDialogState
+    extends State<AddEventDetailBannerDialog> {
   final _eventUrlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool status = false;
@@ -56,9 +51,9 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildSpaceVertical(2.h),
-                  Center(child: textStyle4("Add New Event Detail Banner", TextAlign.center,
-                      ColorManager.darkColor)),
-
+                  Center(
+                      child: textStyle4("Add New Event Detail Banner",
+                          TextAlign.center, ColorManager.darkColor)),
                   buildSpaceVertical(2.h),
                   CustomTextField(
                     controller: _eventUrlController,
@@ -82,10 +77,10 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                       ),
                     ),
                   ),
-
                   buildSpaceVertical(2.h),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -116,13 +111,10 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                     ),
                   ),
                   buildSpaceVertical(2.h),
-
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width / 2),
                     child: const Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: ColorManager.darkColor),
+                        height: 1, thickness: 1, color: ColorManager.darkColor),
                   ),
                   buildSpaceVertical(2.h),
                   Row(
@@ -133,7 +125,8 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
                         flex: 1,
                         child: InkWell(
                           onTap: () async {
-                            await AddEventDetailBanner().addHomeTopBanner(imageUrl, _eventUrlController.text, status);
+                            await AddEventDetailBanner().addEventDetailsBanner(
+                                imageUrl, _eventUrlController.text, status);
                             Get.offAllNamed('/root');
                           },
                           child: Container(
@@ -193,8 +186,10 @@ class _AddEventDetailBannerDialogState extends State<AddEventDetailBannerDialog>
 
   uploadImageToStorage(PickedFile? pickedFile) async {
     DateTime dateTime = DateTime.now();
-    Reference reference = FirebaseStorage.instance.ref().child("EventDetailBanner/$dateTime");
-    await reference.putData(await pickedFile!.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
+    Reference reference =
+        FirebaseStorage.instance.ref().child("EventDetailBanner/$dateTime");
+    await reference.putData(await pickedFile!.readAsBytes(),
+        SettableMetadata(contentType: 'image/jpeg'));
     imageUrl = await reference.getDownloadURL();
     print(imageUrl);
     setState(() {});
